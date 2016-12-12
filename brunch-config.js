@@ -11,5 +11,15 @@ module.exports = {
 
   plugins: {
     babel: {presets: ['es2015', 'react']}
+  },
+
+  npm: {
+    styles: {
+      'normalize.css': ['normalize.css']
+    }
+  },
+
+  server: {
+    command: 'nodemon --ignore app --ignore public server.js'
   }
 };
