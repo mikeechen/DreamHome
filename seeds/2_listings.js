@@ -27,6 +27,8 @@ exports.seed = function(knex) {
         photo: 'http://cdnparap70.paragonrels.com/ParagonImages/Property/P7/WVMLS/708562/0/60/45/6f4dde5028c54aa0effbe12f7bf54ad1/4/0302bd687cff7a61ad8758c2ef8fe928/708562.JPG',
         sale_rent: 'For Sale',
         list_broker_name: 'TODD N CLARK',
+        lat: 44.544616,
+        long: -123.2685,
         created_at: new Date('2016-06-26 14:26:16 UTC'),
         updated_at: new Date('2016-06-26 14:26:16 UTC')
       }]);

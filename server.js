@@ -40,7 +40,8 @@ app.use((req, res, next) => {
 });
 
 //routes start here
-
+app.use(require('./routes/users'));
+app.use(require('./routes/token'));
 //routes end here
 
 app.use((_req, res) => {
