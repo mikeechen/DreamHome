@@ -7,6 +7,8 @@ const boom = require('boom');
 const ev = require('express-validation');
 const validations = require('../validations/listings');
 const jwt = require('jsonwebtoken');
+const rp = require('request-promise');
+const st = require('knex-postgis')(knex);
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
 const authorize = function(req, res, next) {
@@ -24,7 +26,20 @@ const authorize = function(req, res, next) {
   });
 };
 
-router.post('/listings', authorize, ev(validations.post), (res, req, next) => {
+router.get('/listings', authorize, ev(validations.get), (req, res, next) => {
+  const { lat, long, dist } = req.body;
+
+  knex('listings')
+    .where(st.dwithin('geo', st.makePoint(long, lat), dist))
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      next(err);
+    });
+});
+
+router.post('/listings', authorize, ev(validations.post), (req, res, next) => {
   const {
       status,
       mlsNumber,
@@ -46,8 +61,18 @@ router.post('/listings', authorize, ev(validations.post), (res, req, next) => {
       listDate,
       photo,
       saleRent,
-      listBrokerName
+      listBrokerName,
+      remarks
         } = req.body;
+
+  const options = {
+    uri: 'https://maps.googleapis.com/maps/api/geocode/json',
+    qs: {
+      key: 'AIzaSyATgzqn8BcKW5zFR4Lm6hOMnIpBVVyutko',
+      address: `${address},+${city},+${state},+${zip}`
+    },
+    json: true
+  }
 
   knex('listings')
     .where('mls_number', mlsNumber)
@@ -74,27 +99,36 @@ router.post('/listings', authorize, ev(validations.post), (res, req, next) => {
               listDate,
               photo,
               saleRent,
-              listBrokerName
+              listBrokerName,
+              remarks
             };
       if (match) {
         return knex('listings')
           .where('mls_number', mlsNumber)
           .where('id', match.id)
-          .update(decamelizeKeys(row), *);
+          .update(decamelizeKeys(row), '*');
+      } else if (status === 'ACT' || status === 'ACTUC' || status === 'ACTRR' || status === 'PND') {
+        rp(options)
+          .then((data) => {
+            const results = data.results[0].geometry.location;
+            row.lat = results.lat;
+            row.long = results.lng;
+            return knex('listings')
+              .insert(Object.assign(decamelizeKeys(row), {geo: st.makePoint(row.long, row.lat)}), '*');
+          });
       } else {
-        return knex('listings')
-          .insert(decamelizeKeys(row), *);
+        res.send('Unecessary Addition');
       }
     })
     .then((everything) => {
-      res.send(everything);
+      res.send(camelizeKeys(everything[0]));
     })
     .catch((err) => {
       next(err);
-    })
+    });
 });
 
-router.delete('/listings', authorize, ev(validations.delete), (res, req, next) => {
+router.delete('/listings', authorize, ev(validations.delete), (req, res, next) => {
   const { mlsNumber } = req.body;
 
   knex('listings')
@@ -114,9 +148,8 @@ router.delete('/listings', authorize, ev(validations.delete), (res, req, next) =
       res.send(deleted);
     })
     .catch((err) => {
-      next(err)
-    })
-
-})
+      next(err);
+    });
+});
 
 module.exports = router;

@@ -40,8 +40,11 @@ app.use((req, res, next) => {
 });
 
 //routes start here
+app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(require('./routes/users'));
 app.use(require('./routes/token'));
+app.use(require('./routes/listings'))
 //routes end here
 
 app.use((_req, res) => {
