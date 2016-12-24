@@ -12,22 +12,42 @@ const validations = require('../validations/token');
 const { camelizeKeys } = require('humps');
 
 function authorize(req, res, next) {
-  jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err) => {
+  jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       req.verify = false;
     } else {
       req.verify = true;
+      req.token = decoded;
     }
 
     next();
   });
 }
 
-router.get('/token', authorize, (req, res, next) => {
-  res.send(req.verify);
+router.get('/api/token', authorize, (req, res, next) => {
+  if (req.verify) {
+    const { userId } = req.token;
+    knex('users')
+      .where('id', userId)
+      .first()
+      .then((row) => {
+        if (!row) throw boom.create(400, 'User Doesn\'t exist!')
+        const user = camelizeKeys(row);
+        user.loggedIn = req.verify;
+        res.send(user);
+      })
+      .catch((err) => {
+        next(err);
+      });
+  } else {
+    const log = {
+      loggedIn: req.verify
+    };
+    res.send(log);
+  }
 });
 
-router.post('/token', ev(validations.post), (req, res, next) => {
+router.post('/api/token', ev(validations.post), (req, res, next) => {
   const { email, password } = req.body;
   let user;
 
@@ -65,7 +85,7 @@ router.post('/token', ev(validations.post), (req, res, next) => {
     });
 });
 
-router.delete('/token', (req, res, next) => {
+router.delete('/api/token', (req, res, next) => {
   res.clearCookie('token');
   res.send(true);
 });

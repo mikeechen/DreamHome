@@ -112,23 +112,37 @@ module.exports = {
   },
 
   delete: {
-    mlsNumber: joi.string()
-    .trim()
-    .label('MLS Number')
-    .required()
+    body: {
+      mlsNumber: joi.string()
+      .trim()
+      .label('MLS Number')
+      .required()
+    }
   },
 
   get: {
-    lat: joi.number()
+    body: {
+      lat: joi.number()
       .label('Latitude')
       .required(),
 
-    long: joi.number()
+      long: joi.number()
       .label('Longitude')
       .required(),
 
-    dist: joi.number()
+      dist: joi.number()
       .label('Distance')
       .required()
+    }
+  },
+
+  getParam: {
+    params: {
+        id: joi.number()
+          .integer()
+          .min(0)
+          .label('Id Param')
+          .required()
+    }
   }
 };

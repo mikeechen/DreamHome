@@ -26,20 +26,47 @@ const authorize = function(req, res, next) {
   });
 };
 
-router.get('/listings', authorize, ev(validations.get), (req, res, next) => {
-  const { lat, long, dist } = req.body;
-
+router.get('/api/listings/reb', (req, res, next) => {
   knex('listings')
-    .where(st.dwithin('geo', st.makePoint(long, lat), dist))
+    .where('list_broker_name', 'REBECCA YU')
     .then((data) => {
       res.send(data);
     })
     .catch((err) => {
       next(err);
-    });
+    })
 });
 
-router.post('/listings', authorize, ev(validations.post), (req, res, next) => {
+router.get('/api/listings/:id', ev(validations.getParam), (req, res, next) => {
+  const id = req.params.id;
+  knex('listings')
+    .where('id', id)
+    .first()
+    .then((house) => {
+      if (!house) {
+        throw boom.create(404, 'Property not Found!')
+      }
+      res.send(house);
+    })
+    .catch((err) => {
+      next(err);
+    })
+})
+
+router.post('/api/listings', ev(validations.get), (req, res, next) => {
+  const { lat, long, dist } = req.body;
+
+  knex('listings')
+  .where(st.dwithin('geo', st.makePoint(long, lat), dist))
+  .then((data) => {
+    res.send(data);
+  })
+  .catch((err) => {
+    next(err);
+  });
+});
+
+router.post('/api/listings', authorize, ev(validations.post), (req, res, next) => {
   const {
       status,
       mlsNumber,
@@ -128,7 +155,7 @@ router.post('/listings', authorize, ev(validations.post), (req, res, next) => {
     });
 });
 
-router.delete('/listings', authorize, ev(validations.delete), (req, res, next) => {
+router.delete('/api/listings', authorize, ev(validations.delete), (req, res, next) => {
   const { mlsNumber } = req.body;
 
   knex('listings')

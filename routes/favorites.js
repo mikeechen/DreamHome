@@ -24,7 +24,7 @@ const authorize = function(req, res, next) {
   });
 };
 
-router.get('/favorites', authorize, (req, res, next) => {
+router.get('/api/favorites', authorize, (req, res, next) => {
   const { userId } = req.token;
 
   knex('favorites')
@@ -42,7 +42,7 @@ router.get('/favorites', authorize, (req, res, next) => {
     });
 });
 
-router.get('/favorites/check', authorize, (req, res, next) => {
+router.get('/api/favorites/check', authorize, (req, res, next) => {
   const { userId } = req.token;
   const listingId = req.query.listingId;
 
@@ -62,7 +62,7 @@ router.get('/favorites/check', authorize, (req, res, next) => {
     });
 });
 
-router.post('/favorites', authorize, ev(validations.post), (req, res, next) => {
+router.post('/api/favorites', authorize, ev(validations.post), (req, res, next) => {
   const { listingId } = req.body;
   const { userId } = req.token;
 
@@ -92,7 +92,7 @@ router.post('/favorites', authorize, ev(validations.post), (req, res, next) => {
     });
 });
 
-router.delete('/favorites', authorize, ev(validations.post), (req, res, next) => {
+router.delete('/api/favorites', authorize, ev(validations.post), (req, res, next) => {
   const { userId } = req.token;
   const { listingId } = req.body;
 

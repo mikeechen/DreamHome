@@ -1,1 +1,222 @@
+header nav {
+  width: 100%;
+  height: 6rem;
+  background: #fff;
+  z-index: 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
 
+header nav ul {
+  list-style: none;
+  margin-bottom: 0;
+}
+
+header nav ul li {
+  position: relative;
+  float: left;
+  margin-bottom: 0;
+  display: list-item;
+}
+
+header nav ul li a {
+  display: block;
+  padding: 1.8rem 3rem;
+  text-decoration: none;
+  color: #222;
+  font-weight: bold;
+  transition: 0.5s;
+}
+
+header nav ul li a:hover {
+  border-bottom: 1px solid #0FA0CE;
+}
+
+header .nav-bar {
+  height: inherit;
+}
+
+header.logo {
+  padding: 2rem;
+}
+
+footer {
+  width: 100%;
+  height: 10rem;
+  background: #5e6063;
+}
+
+footer ul {
+  list-style: none;
+  margin-bottom: 0;
+}
+
+footer ul li {
+  position: relative;
+  float: left;
+  margin-bottom: 0;
+  display: list-item;
+}
+
+footer ul li a {
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  color: #fff;
+  transition: 0.5s;
+}
+
+footer .nav-row {
+  padding: 1rem 0 0.5rem;
+  border-bottom: 1px solid #454749;
+}
+
+p {
+  margin-bottom: 0;
+}
+
+.body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1 0 auto;
+}
+
+.section {
+  padding: 8rem 0 8rem;
+}
+
+.with-background {
+  background-image: url('./img/Corvallis_looking_South_City_May_1_2016_7pm_DST.png');
+  height: 90vh;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.main-pic {
+  position: relative;
+  bottom: 0;
+  margin-bottom: 0;
+  left: -30rem;
+  height: 90vh;
+}
+
+.search-section {
+  position: relative;
+  bottom: 60rem;
+  z-index: 1;
+}
+
+.labels {
+  font-size: 80%;
+}
+
+.distance-label {
+  margin-bottom: 0;
+}
+
+.login-form {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  padding: 1rem 4rem 0;
+  border: 1px solid #222;
+  transition: opacity 1s;
+}
+
+.login-form-appear {
+  visibility: visible;
+  opacity: 1;
+  background-color: #fff;
+  z-index: 2;
+}
+
+.search-form {
+  margin: 5rem 0 0 20rem;
+}
+
+.review-background {
+  background-color: #066ecc;
+}
+
+.ratings {
+  text-align: center;
+  font-size: 200%;
+  color: #FFD700;
+}
+
+.review-enter {
+  opacity: 0.01;
+}
+
+.review-enter.review-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.review-leave {
+  opacity: 1;
+}
+
+.review-leave.review-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+.review-appear {
+  opacity: 0.01;
+}
+
+.review-appear.review-appear-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.review-block {
+  margin-left: 2rem;
+}
+
+.mapsearch {
+  padding-top: 2rem;
+}
+
+#title {
+  text-align: center;
+}
+
+#subtitle {
+  margin-left: 20rem;
+}
+
+#login {
+  float: right;
+}
+
+#copyright {
+  color: #fff;
+  text-align: left;
+  padding-top: 1rem;
+}
+
+#start-header {
+  color:
+}
+
+#inputbox {
+  width: 80%;
+  margin-right: 2.5rem;
+}
+
+#zillow {
+  margin-top: 0.5rem;
+}
+
+#reviewer {
+  margin-bottom: 0.5rem;
+}

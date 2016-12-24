@@ -49,7 +49,7 @@ import { observer } from 'mobx-react';
     .map((elm) => {
       return axios({
         method: 'post',
-        url: '/listings',
+        url: '/api/listings',
         data: elm
       });
     });

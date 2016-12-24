@@ -24,25 +24,7 @@ function authorize(req, res, next) {
   });
 }
 
-router.get('/users', authorize, (req, res, next) => {
-  if (!req.verify) {
-    return boom.create(401, 'Unauthorized');
-  }
-
-  const { userId } = req.token;
-
-  knex('users')
-    .where('id', userId)
-    .first()
-    .then((user) => {
-      res.send(camelizeKeys(user));
-    })
-    .catch((err) => {
-      next(err);
-    });
-});
-
-router.post('/users', ev(validations.post), (req, res, next) => {
+router.post('/api/users', ev(validations.post), (req, res, next) => {
   const { firstName, lastName, email, age, phoneNumber, password } = req.body;
 
   knex('users')
