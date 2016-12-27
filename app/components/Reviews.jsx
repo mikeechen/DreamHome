@@ -1,6 +1,6 @@
 import React from 'react';
-import Review from './Review';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import Review from './Review';
 
 export default class Reviews extends React.Component {
   constructor(props) {
@@ -14,6 +14,21 @@ export default class Reviews extends React.Component {
         starArr.push((<span key={i}>★</span>));
       }
     }
+
+    const reviews = this.props.reviews.map((elm) => {
+      return (
+        <ReactCSSTransitionGroup
+          transitionName="review"
+          transitionAppear={true}
+          transitionAppearTimeout={500}
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}
+        >
+          <Review review={elm} />
+        </ReactCSSTransitionGroup>
+      )
+    });
+
     return (
       <div className="section review-background">
         <div className="container">
@@ -24,18 +39,7 @@ export default class Reviews extends React.Component {
                 {starArr}
               </div>
             </div>
-            {this.props.reviews ?
-              <ReactCSSTransitionGroup
-                transitionName="review"
-                transitionAppear={true}
-                transitionAppearTimeout={500}
-                transitionEnterTimeout={500}
-                transitionLeaveTimeout={300}
-              >
-                <Review review={this.props.reviews} />
-              </ReactCSSTransitionGroup> :
-              null
-            }
+            {reviews[this.props.counter]}
           </div>
         </div>
       </div>

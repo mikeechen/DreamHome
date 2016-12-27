@@ -1,5 +1,5 @@
 import React from 'react';
-import { Match } from 'react-router';
+import { Match, Redirect } from 'react-router';
 import MainLanding from './MainLanding';
 import SearchHomes from './SearchHomes';
 
@@ -11,7 +11,13 @@ export default class Main extends React.Component {
   render() {
     return (
       <div>
-        <Match exactly pattern="/" component={MainLanding}/>
+        <Match exactly pattern="/" render={() => (
+          localStorage.lat && localStorage.lng ? (
+            <Redirect to="/search" />
+          ) : (
+            <MainLanding />
+          )
+        )}/>
         <Match pattern="/search" component={SearchHomes} />
       </div>
     )

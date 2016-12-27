@@ -35,7 +35,7 @@ import { observer } from 'mobx-react';
         middleSchool: elm['Middle School'],
         highSchool: elm['High School'],
         listDate: new Date(elm['Listing Date']),
-        photo: elm.photo,
+        photo: elm.Photo,
         saleRent: elm['Sale/Rent'],
         listBrokerName: elm['List Broker Name - Agent Name'],
         remarks: elm['Syndicated Remarks']

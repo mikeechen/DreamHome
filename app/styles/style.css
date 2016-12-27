@@ -186,6 +186,17 @@ p {
   padding-top: 2rem;
 }
 
+.mapform {
+  border-bottom: 1px solid #eee;
+}
+
+.houses {
+  margin-left: 0;
+  border-left: 1px solid #eee;
+  height: 90vh;
+  overflow: scroll;
+}
+
 #title {
   text-align: center;
 }

@@ -53,7 +53,7 @@ router.get('/api/listings/:id', ev(validations.getParam), (req, res, next) => {
     })
 })
 
-router.post('/api/listings', ev(validations.get), (req, res, next) => {
+router.post('/api/listings/get', ev(validations.get), (req, res, next) => {
   const { lat, long, dist } = req.body;
 
   knex('listings')
@@ -148,7 +148,7 @@ router.post('/api/listings', authorize, ev(validations.post), (req, res, next) =
       }
     })
     .then((everything) => {
-      res.send(camelizeKeys(everything[0]));
+      res.send(camelizeKeys(everything));
     })
     .catch((err) => {
       next(err);
