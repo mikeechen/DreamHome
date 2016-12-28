@@ -78,7 +78,6 @@ import Reviews from './Reviews';
                 <Autocomplete
                   id="inputbox"
                   type="text"
-                  className="u-full-width"
                   placeholder="Enter the address you want to search around"
                   onPlaceSelected={this.selectPlace.bind(this)}
                   types={['address']}

@@ -15,9 +15,10 @@ import { observer } from 'mobx-react';
   }
 
   completeFunction (results) {
+    console.log(results.data);
     const requests = results.data.map((elm) => {
       const body = {
-        status: elm.Stat.substring(2, elm.Stat.length - 1),
+        status: elm.Stat,
         mlsNumber: elm['MLS #'],
         address: elm['Full Address'],
         city: elm.City,
@@ -69,7 +70,7 @@ import { observer } from 'mobx-react';
     e.preventDefault();
     const file = this.file[0];
     const config = {
-      delimiter: '',	// auto-detect
+      delimiter: ',',	// auto-detect
       newline: '',	// auto-detect
       header: true,
       dynamicTyping: false,

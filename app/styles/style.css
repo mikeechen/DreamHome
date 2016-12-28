@@ -195,6 +195,16 @@ p {
   border-left: 1px solid #eee;
   height: 90vh;
   overflow: scroll;
+  display: block;
+}
+
+.house {
+  margin: 0 1rem 2rem 0;
+}
+
+.housephoto {
+  margin: 0;
+  height: 20rem;
 }
 
 #title {

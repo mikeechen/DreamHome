@@ -4,6 +4,7 @@ import { observable, computed } from 'mobx';
 import Autocomplete from 'react-google-autocomplete';
 import axios from 'axios';
 import Map from './Map';
+import Houses from './Houses';
 
 @observer export default class SearchHomes extends React.Component {
   @observable lat = 0;
@@ -53,7 +54,7 @@ import Map from './Map';
     .then((res) => {
       const newMarkers = res.data.map((elm, ind) => {
         const { lat, long, address, state, zip, status, remarks } = elm;
-        console.log(elm.photo);
+
         return {
           position: {
             lat: lat,
@@ -194,8 +195,12 @@ import Map from './Map';
               onSearchBoxMount={this.handleSearchBoxMount}
             />
           </div>
-          <div className="five columns houses">
-            M
+          <div className="row">
+            <div className="houses">
+              <Houses
+                listings={this.listings}
+              />
+            </div>
           </div>
         </div>
       </div>
