@@ -17,15 +17,7 @@ export default class Reviews extends React.Component {
 
     const reviews = this.props.reviews.map((elm) => {
       return (
-        <ReactCSSTransitionGroup
-          transitionName="review"
-          transitionAppear={true}
-          transitionAppearTimeout={500}
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={300}
-        >
-          <Review review={elm} />
-        </ReactCSSTransitionGroup>
+        <Review review={elm} />
       )
     });
 
@@ -39,7 +31,15 @@ export default class Reviews extends React.Component {
                 {starArr}
               </div>
             </div>
-            {reviews[this.props.counter]}
+            <ReactCSSTransitionGroup
+              transitionName="review"
+              transitionAppear={true}
+              transitionAppearTimeout={500}
+              transitionEnterTimeout={500}
+              transitionLeaveTimeout={300}
+            >
+              {reviews[this.props.counter]}
+            </ReactCSSTransitionGroup>
           </div>
         </div>
       </div>

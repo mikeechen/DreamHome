@@ -59,7 +59,7 @@ router.post('/api/listings/get', ev(validations.get), (req, res, next) => {
   knex('listings')
   .where(st.dwithin('geo', st.makePoint(long, lat), dist))
   .then((data) => {
-    res.send(data);
+    res.send(camelizeKeys(data));
   })
   .catch((err) => {
     next(err);

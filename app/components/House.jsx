@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
@@ -11,6 +12,16 @@ import { observer } from 'mobx-react';
     this.checkImage = this.checkImage.bind(this);
     this.changeImage = this.changeImage.bind(this);
     this.replaceImage = this.replaceImage.bind(this);
+  }
+
+  handleMouseEvent() {
+    const house = ReactDOM.findDOMNode(this.refs.infodiv);
+    if (house.classList[1] === 'infodivhover') {
+      this.props.markerClose(this.props.id);
+    } else {
+      this.props.markerClick(this.props.id);
+    }
+    house.classList.toggle('infodivhover');
   }
 
   checkImage(photo, success, change) {
@@ -42,8 +53,18 @@ import { observer } from 'mobx-react';
 
   render() {
     return (
-      <div className="one-half column house">
+      <div onMouseEnter={this.handleMouseEvent.bind(this)} onMouseLeave={this.handleMouseEvent.bind(this)} className="one-half column house">
         <img className="housephoto u-full-width" src={this.photo} />
+        <div className="infodiv" ref='infodiv'>
+          <div className="row">
+            <div className="one column">
+              <div className={this.props.status === 'ACT' ? 'active' : 'pending' }>✺</div>
+            </div>
+            <div className="sale-rent">&nbsp;{this.props.saleRent}</div>
+          </div>
+          <h4 className="houseprice">{this.props.price}</h4>
+          <div className="houseinfo">{this.props.sqFt}sqft | {this.props.beds} beds | {this.props.baths} baths</div>
+        </div>
       </div>
     )
   }

@@ -13,7 +13,7 @@ export default class Review extends React.Component {
           <h5 id="reviewer">Reviewer: {this.props.review.reviewer}</h5>
           <h6>Rating: {this.props.review.rating}/5</h6>
           <p>Date: {this.props.review.reviewDate}</p>
-          <p>{this.props.review.description}</p>
+          <p>{this.props.review.description} &nbsp;<a className="readmorelink" href={this.props.review.reviewURL} target="_blank">Read More</a></p>
         </div>
       </div>
     )

@@ -51,7 +51,7 @@ import Reviews from './Reviews';
 
   timer() {
     setInterval(() => {
-      if (this.counter < 10) {
+      if (this.counter < this.reviews.length - 1) {
         this.counter++;
       } else {
         this.counter = 0;
@@ -81,6 +81,7 @@ import Reviews from './Reviews';
                   placeholder="Enter the address you want to search around"
                   onPlaceSelected={this.selectPlace.bind(this)}
                   types={['address']}
+                  componentRestrictions={{country: 'us'}}
                 />
                 <input className="button button-primary" type="submit" placeholder="submit"/>
               </form>

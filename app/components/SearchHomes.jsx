@@ -53,21 +53,26 @@ import Houses from './Houses';
     })
     .then((res) => {
       const newMarkers = res.data.map((elm, ind) => {
-        const { lat, long, address, state, zip, status, remarks } = elm;
+        const { lat, long, address, state, zip, status, photo } = elm;
 
         return {
           position: {
             lat: lat,
             lng: long
           },
-          key: elm.id,
+          key: ind,
+          id: elm.id,
           animation: 2,
           showInfo: false,
           infoContent: (
-            <div>
-              <p>Address: {address}, {state} {zip}</p>
-              <p>Status: {status}</p>
-              <p>{remarks}</p>
+            <div className="row">
+              <div className="three columns">
+                <img src={photo}/>
+              </div>
+              <div className="nine columns">
+                <p>Address: {address}, {state} {zip}</p>
+                <p>Status: {status === 'ACT' ? 'ACTIVE' : 'PENDING' }</p>
+              </div>
             </div>
           )
         };
@@ -109,6 +114,10 @@ import Houses from './Houses';
     });
   }
 
+  handleChange(e) {
+    this.address = e.target.value;
+  }
+
   handleMapLoad(map) {
     this._mapComponent = map;
   }
@@ -125,7 +134,7 @@ import Houses from './Houses';
 
   handleMarkerClick(mark) {
     const markOpen = this.markers.map((elm) => {
-      if (elm === mark) {
+      if (elm === mark || elm.id === mark) {
         return {
           ...elm,
           showInfo: true
@@ -139,7 +148,7 @@ import Houses from './Houses';
 
   handleMarkerClose(mark) {
     const markClose = this.markers.map((elm) => {
-      if (elm === mark) {
+      if (elm === mark || elm.id === mark) {
         return {
           ...elm,
           showInfo: false
@@ -165,7 +174,10 @@ import Houses from './Houses';
                 type="text"
                 className="u-full-width"
                 onPlaceSelected={this.handleAddressSelect.bind(this)}
+                placeholder="Enter an address"
                 types={['address']}
+                componentRestrictions={{country: 'us'}}
+                onChange={this.handleChange.bind(this)}
               />
             </div>
             <div className="two columns">
@@ -199,6 +211,8 @@ import Houses from './Houses';
             <div className="houses">
               <Houses
                 listings={this.listings}
+                markerClick={this.handleMarkerClick}
+                markerClose={this.handleMarkerClose}
               />
             </div>
           </div>

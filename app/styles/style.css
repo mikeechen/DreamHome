@@ -127,7 +127,7 @@ p {
   right: 0;
   padding: 1rem 4rem 0;
   border: 1px solid #222;
-  transition: opacity 1s;
+  transition: opacity 0.5s;
 }
 
 .login-form-appear {
@@ -202,9 +202,54 @@ p {
   margin: 0 1rem 2rem 0;
 }
 
+.house:hover {
+  cursor: pointer;
+}
+
 .housephoto {
   margin: 0;
   height: 20rem;
+}
+
+.infodiv {
+  position: relative;
+  z-index: 1;
+  bottom: 9rem;
+  margin-bottom: -10rem;
+  padding-left: 1rem;
+  color: #fff;
+  transition: all 0.5s ease;
+}
+
+.infodivhover {
+  background: linear-gradient(to top, black, transparent);
+  transition: all 0.3s ease;
+}
+
+.readmorelink {
+  text-decoration: none;
+  color: #c4c4c4;
+}
+
+.sale-rent {
+  margin: 0;
+}
+
+.active {
+  color: #0ef70e;
+}
+
+.pending {
+  color: #f70e0e;
+}
+
+.houseprice {
+  margin-bottom: 0;
+}
+
+.houseinfo {
+  margin-top: 0;
+  font-size: 90%;
 }
 
 #title {
