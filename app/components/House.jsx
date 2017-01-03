@@ -12,6 +12,7 @@ import { observer } from 'mobx-react';
     this.checkImage = this.checkImage.bind(this);
     this.changeImage = this.changeImage.bind(this);
     this.replaceImage = this.replaceImage.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleMouseEvent() {
@@ -22,6 +23,10 @@ import { observer } from 'mobx-react';
       this.props.markerClick(this.props.id);
     }
     house.classList.toggle('infodivhover');
+  }
+
+  handleClick() {
+    this.props.houseSelect(this.props.id);
   }
 
   checkImage(photo, success, change) {
@@ -53,14 +58,14 @@ import { observer } from 'mobx-react';
 
   render() {
     return (
-      <div onMouseEnter={this.handleMouseEvent.bind(this)} onMouseLeave={this.handleMouseEvent.bind(this)} className="one-half column house">
+      <div onClick={this.handleClick} onMouseEnter={this.handleMouseEvent.bind(this)} onMouseLeave={this.handleMouseEvent.bind(this)} className="one-half column house">
         <img className="housephoto u-full-width" src={this.photo} />
         <div className="infodiv" ref='infodiv'>
           <div className="row">
             <div className="one column">
               <div className={this.props.status === 'ACT' ? 'active' : 'pending' }>✺</div>
             </div>
-            <div className="sale-rent">&nbsp;{this.props.saleRent}</div>
+            <div className="sale-rent">&nbsp;{this.props.status === 'ACT' ? this.props.saleRent : 'Pending' }</div>
           </div>
           <h4 className="houseprice">{this.props.price}</h4>
           <div className="houseinfo">{this.props.sqFt}sqft | {this.props.beds} beds | {this.props.baths} baths</div>

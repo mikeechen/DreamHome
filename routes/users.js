@@ -11,19 +11,6 @@ const validations = require('../validations/users');
 const jwt = require('jsonwebtoken');
 const { camelizeKeys, decamelizeKeys } = require('humps');
 
-function authorize(req, res, next) {
-  jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err) {
-      req.verify = false;
-    } else {
-      req.verify = true;
-      req.token = decoded;
-    }
-
-    next();
-  });
-}
-
 router.post('/api/users', ev(validations.post), (req, res, next) => {
   const { firstName, lastName, email, age, phoneNumber, password } = req.body;
 
@@ -39,7 +26,7 @@ router.post('/api/users', ev(validations.post), (req, res, next) => {
       return bcrypt.hash(password, 12);
     })
     .then((hashedPassword) => {
-      const insertUser = { firstName, lastName, email, hashedPassword };
+      const insertUser = { firstName, lastName, email, age, phoneNumber, hashedPassword };
 
       return knex('users')
         .insert(decamelizeKeys(insertUser), '*');

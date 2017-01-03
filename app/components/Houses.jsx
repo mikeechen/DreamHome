@@ -21,6 +21,7 @@ export default class Houses extends React.Component {
           sqFt={elm.sqFt}
           markerClick={this.props.markerClick}
           markerClose={this.props.markerClose}
+          houseSelect={this.props.houseSelect}
         />
       )
     });

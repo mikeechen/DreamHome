@@ -1,10 +1,12 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { observer } from 'mobx-react';
 import { observable, computed } from 'mobx';
 import Autocomplete from 'react-google-autocomplete';
 import axios from 'axios';
 import Map from './Map';
 import Houses from './Houses';
+import Modal from './Modal';
 
 @observer export default class SearchHomes extends React.Component {
   @observable lat = 0;
@@ -14,6 +16,7 @@ import Houses from './Houses';
   @observable listings = [];
   @observable address = '';
   @observable _mapComponent;
+  @observable house = {};
 
   constructor() {
     super();
@@ -22,6 +25,9 @@ import Houses from './Houses';
     this.handleCenterChange = this.handleCenterChange.bind(this);
     this.handleMarkerClick = this.handleMarkerClick.bind(this);
     this.handleMarkerClose = this.handleMarkerClose.bind(this);
+    this.houseSelect = this.houseSelect.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
     this.lat = parseFloat(localStorage.lat) || 44.5535686;
     this.lng = parseFloat(localStorage.lng) || -123.3381089;
     if (localStorage.lat) {
@@ -83,6 +89,28 @@ import Houses from './Houses';
     .catch((err) => {
       console.log(err);
     })
+  }
+
+  houseSelect(id) {
+    axios.get(`api/listings/${id}`)
+      .then(res => {
+        this.house = res.data;
+        this.openModal();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  openModal() {
+    const modal = ReactDOM.findDOMNode(this.refs.modal);
+    modal.style.display = 'block';
+  }
+
+  closeModal() {
+    const modal = ReactDOM.findDOMNode(this.refs.modal);
+
+    modal.style.display = 'none';
   }
 
   handleAddressSelect(place) {
@@ -213,10 +241,16 @@ import Houses from './Houses';
                 listings={this.listings}
                 markerClick={this.handleMarkerClick}
                 markerClose={this.handleMarkerClose}
+                houseSelect={this.houseSelect}
               />
             </div>
           </div>
         </div>
+        <Modal
+          ref="modal"
+          closeModal={this.closeModal}
+          house={this.house}
+        />
       </div>
     )
   }

@@ -15,10 +15,9 @@ import { observer } from 'mobx-react';
   }
 
   completeFunction (results) {
-    console.log(results.data);
     const requests = results.data.map((elm) => {
       const body = {
-        status: elm.Stat,
+        status: elm.Stat, //.substring(2, elm.Stat.length - 1),
         mlsNumber: elm['MLS #'],
         address: elm['Full Address'],
         city: elm.City,
@@ -39,7 +38,7 @@ import { observer } from 'mobx-react';
         photo: elm.Photo,
         saleRent: elm['Sale/Rent'],
         listBrokerName: elm['List Broker Name - Agent Name'],
-        remarks: elm['Syndicated Remarks']
+        remarks: elm['Public Remarks']
       };
 
       return body;

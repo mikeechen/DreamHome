@@ -1,19 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { observer } from 'mobx-react';
-import { observable } from 'mobx';
 import { Link } from 'react-router';
+import HeaderModal from './HeaderModal';
 
-@observer export default class Header extends React.Component {
-  @observable email = '';
-  @observable pass = '';
-
+export default class Header extends React.Component {
   constructor() {
     super();
+    this.signUpModalClose = this.signUpModalClose.bind(this);
   }
 
   handleChange(e) {
-    e.target.name === 'email' ? this.email = e.target.value : this.pass = e.target.value;
+    this.props.handleChange(e);
   }
 
   logout(e) {
@@ -24,13 +21,24 @@ import { Link } from 'react-router';
   loginSubmit(e) {
     e.preventDefault();
     const node = ReactDOM.findDOMNode(this.refs.loginForm)
-    this.props.login(this.email, this.pass, node);
+    this.props.login(this.props.email, this.props.pass, node);
   }
 
   loginForm(e) {
     e.preventDefault();
     const loginNode = ReactDOM.findDOMNode(this.refs.loginForm);
     loginNode.classList.toggle('login-form-appear');
+  }
+
+  signUpModalOpen(e) {
+    e.preventDefault();
+    const modal = ReactDOM.findDOMNode(this.refs.headerModal);
+    modal.style.display = 'block';
+  }
+
+  signUpModalClose() {
+    const modal = ReactDOM.findDOMNode(this.refs.headerModal);
+    modal.style.display = 'none';
   }
 
   render() {
@@ -41,7 +49,7 @@ import { Link } from 'react-router';
             <ul>
               <li><Link to="/">Home</Link></li>
               <li><Link to="/search">Search For Homes</Link></li>
-              <li><a href="">Sign Up</a></li>
+              <li><a href="" onClick={this.signUpModalOpen.bind(this)}>Sign Up</a></li>
               <li><a href="">Contact</a></li>
               <li><a href="">About</a></li>
               {this.props.loggedIn ?
@@ -58,7 +66,7 @@ import { Link } from 'react-router';
                 <label className="labels" htmlFor="email">Your Email</label>
                 <input
                   onChange={this.handleChange.bind(this)}
-                  value={this.email}
+                  value={this.props.email}
                   id="email"
                   type="email"
                   name="email"
@@ -69,10 +77,10 @@ import { Link } from 'react-router';
                 <label className="labels" htmlFor="password">Your Email</label>
                 <input
                   onChange={this.handleChange.bind(this)}
-                  value={this.pass}
+                  value={this.props.pass}
                   id="password"
                   type="password"
-                  name="password"
+                  name="pass"
                   placeholder="password"
                 />
               </div>
@@ -84,6 +92,18 @@ import { Link } from 'react-router';
             </form>
           </div>
         </div>
+        <HeaderModal
+          ref="headerModal"
+          signUp={this.props.signUp}
+          signUpModalClose={this.signUpModalClose}
+          handleChange={this.props.handleChange}
+          firstName={this.props.firstName}
+          lastName={this.props.lastName}
+          age={this.props.age}
+          phoneNumber={this.props.phoneNumber}
+          email={this.props.email}
+          pass={this.props.pass}
+        />
       </header>
     )
   }

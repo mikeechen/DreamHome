@@ -46,7 +46,7 @@ router.get('/api/listings/:id', ev(validations.getParam), (req, res, next) => {
       if (!house) {
         throw boom.create(404, 'Property not Found!')
       }
-      res.send(house);
+      res.send(camelizeKeys(house));
     })
     .catch((err) => {
       next(err);

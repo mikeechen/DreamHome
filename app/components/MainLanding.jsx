@@ -11,6 +11,7 @@ import Reviews from './Reviews';
   @observable counter = 0;
   @observable tempLat = 0;
   @observable tempLng = 0;
+  @observable tempAdd = '';
 
   constructor() {
     super();
@@ -36,6 +37,10 @@ import Reviews from './Reviews';
     })
   }
 
+  handleChange(e) {
+    this.tempAdd = e.target.value;
+  }
+
   selectPlace(place) {
     const lat = place.geometry.location.lat();
     const lng = place.geometry.location.lng();
@@ -44,9 +49,31 @@ import Reviews from './Reviews';
     this.tempLng = lng;
   }
 
-  handleSubmit() {
-    localStorage.lat = this.tempLat;
-    localStorage.lng = this.tempLng;
+  handleSubmit(e) {
+    e.preventDefault();
+    if (!this.tempLat || !this.tempLng) {
+      axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
+        params: {
+          key: 'AIzaSyATgzqn8BcKW5zFR4Lm6hOMnIpBVVyutko',
+          address: this.tempAdd
+        }
+      })
+      .then(response => {
+        const result = response.data.results[0].geometry.location;
+        const lat = result.lat;
+        const lng = result.lng;
+        localStorage.lat = lat;
+        localStorage.lng = lng;
+        window.location.reload();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    } else {
+      localStorage.lat = this.tempLat;
+      localStorage.lng = this.tempLng;
+      window.location.reload();
+    }
   }
 
   timer() {
@@ -82,6 +109,7 @@ import Reviews from './Reviews';
                   onPlaceSelected={this.selectPlace.bind(this)}
                   types={['address']}
                   componentRestrictions={{country: 'us'}}
+                  onChange={this.handleChange.bind(this)}
                 />
                 <input className="button button-primary" type="submit" placeholder="submit"/>
               </form>
