@@ -72,6 +72,11 @@ import InfoRow from './InfoRow';
       this.checkImage(this.props.house.photo);
     }
 
+    const subject = `Listing at ${this.props.house.address}, `
+                  + `${this.props.house.city}, ${this.props.house.state}`;
+    const body = `Hi Rebecca, \n\nI'm interested in the listing at `
+                + `${this.props.house.address}, and would love to schedule a tour `
+                + `with you! \n\nSincerely, \n\n${this.props.firstName || 'Your Name'} ${this.props.lastName || 'Here'}`;
     const favoriteButt = (
       <div className="one column">
         {
@@ -111,7 +116,10 @@ import InfoRow from './InfoRow';
               </Link>
             </div>
             <div className="three columns">
-              <a className="button" href={`mailto:RebeccaYu@remax.com`} target="_blank">Contact Rebecca!</a>
+              <a
+                className="button"
+                href={`mailto:RebeccaYu@remax.net?subject=${subject}&body=${encodeURIComponent(body)}`}
+                target="_blank">Contact Rebecca!</a>
             </div>
           </div>
         </div>

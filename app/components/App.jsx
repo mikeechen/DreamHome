@@ -20,6 +20,8 @@ import HeaderModal from './HeaderModal';
   @observable phoneNumber = '';
   @observable email = '';
   @observable pass = '';
+  @observable fName = '';
+  @observable lName = '';
 
   constructor() {
     super();
@@ -83,6 +85,8 @@ import HeaderModal from './HeaderModal';
       .then((res) => {
         this.admin = res.data.admin;
         this.loggedIn = res.data.loggedIn;
+        this.fName = res.data.firstName;
+        this.lName = res.data.lastName;
       })
       .catch((err) => {
         console.error(err);
@@ -151,6 +155,8 @@ import HeaderModal from './HeaderModal';
             handleChange={this.handleChange}
             email={this.email}
             pass={this.pass}
+            firstName={this.fName}
+            lastName={this.lName}
           />
           <Notifications />
           <main className="main">
@@ -158,6 +164,8 @@ import HeaderModal from './HeaderModal';
                 <Admin /> :
                 <Main
                   loggedIn={this.loggedIn}
+                  firstName={this.fName}
+                  lastName={this.lName}
                 />
               }
           </main>

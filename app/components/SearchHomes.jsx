@@ -295,6 +295,8 @@ import Modal from './Modal';
           loggedIn={this.props.loggedIn}
           favorite={this.handleFavorite}
           deleteFavorite={this.deleteFavorite}
+          firstName={this.props.firstName}
+          lastName={this.props.lastName}
         />
       </div>
     )

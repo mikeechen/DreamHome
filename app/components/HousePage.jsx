@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
+import { notify } from 'react-notify-toast';
 import axios from 'axios';
 import Error from './Error';
 import HouseId from './HouseId';
@@ -17,6 +18,8 @@ import HouseId from './HouseId';
       this.houseId = this.props.location.query.id;
     }
     this.checkFavorite = this.checkFavorite.bind(this);
+    this.handleFavorite = this.handleFavorite.bind(this);
+    this.deleteFavorite = this.deleteFavorite.bind(this);
   }
 
   checkFavorite(id) {
@@ -27,6 +30,46 @@ import HouseId from './HouseId';
       .catch(err => {
         console.error(err);
       })
+  }
+
+  handleFavorite(id) {
+    axios({
+      method: 'post',
+      url: 'api/favorites',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+        listingId: id
+      }
+    })
+    .then(res => {
+      this.checkFavorite(id);
+      notify.show('Added to favorites!', 'success', 3000);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  }
+
+  deleteFavorite(id) {
+    axios({
+      method: 'delete',
+      url: 'api/favorites',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+        listingId: id
+      }
+    })
+    .then(res => {
+      this.checkFavorite(id);
+      notify.show('Deleted from favorites!', 'success', 3000);
+    })
+    .catch(err => {
+      console.error(err);
+    });
   }
 
   componentDidMount() {
@@ -67,6 +110,10 @@ import HouseId from './HouseId';
             marker={this.marker}
             favorite={this.favorite}
             loggedIn={this.props.loggedIn}
+            firstName={this.props.firstName}
+            lastName={this.props.lastName}
+            handleFavorite={this.handleFavorite}
+            deleteFavorite={this.deleteFavorite}
           />
         ) : (
           <Error />

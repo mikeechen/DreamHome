@@ -2,25 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 import HeaderModal from './HeaderModal';
+import LoginForm from './LoginForm';
 
 export default class Header extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  handleChange(e) {
-    this.props.handleChange(e);
-  }
-
   logout(e) {
     e.preventDefault();
     this.props.logout();
-  }
-
-  loginSubmit(e) {
-    e.preventDefault();
-    const node = ReactDOM.findDOMNode(this.refs.loginForm)
-    this.props.login(this.props.email, this.props.pass, node);
   }
 
   loginForm(e) {
@@ -45,7 +36,7 @@ export default class Header extends React.Component {
                 <li><a href="">Favorites</a></li> :
                 <li><a href="" onClick={this.signUpModalOpen.bind(this)}>Sign Up</a></li>
               }
-              <li><a href="">Contact</a></li>
+              <li><a href="mailto:RebeccaYu@remax.net" target="_blank">Contact</a></li>
               <li><a href="">About</a></li>
               {this.props.loggedIn ?
                 <li id="login"><a href="" onClick={this.logout.bind(this)}>Log Out</a></li> :
@@ -55,37 +46,13 @@ export default class Header extends React.Component {
           </div>
         </nav>
         <div className="container">
-          <div className="login-form" ref="loginForm">
-            <form onSubmit={this.loginSubmit.bind(this)}>
-              <div className="row">
-                <label className="labels" htmlFor="email">Your Email</label>
-                <input
-                  onChange={this.handleChange.bind(this)}
-                  value={this.props.email}
-                  id="email"
-                  type="email"
-                  name="email"
-                  placeholder="blah@blah.com"
-                />
-              </div>
-              <div className="row">
-                <label className="labels" htmlFor="password">Your Email</label>
-                <input
-                  onChange={this.handleChange.bind(this)}
-                  value={this.props.pass}
-                  id="password"
-                  type="password"
-                  name="pass"
-                  placeholder="password"
-                />
-              </div>
-              <div className="row">
-                <div className="one column offset-by-five columns">
-                  <input className="button button-primary" type="submit" placeholder="Submit"/>
-                </div>
-              </div>
-            </form>
-          </div>
+          <LoginForm
+            ref="loginForm"
+            handleChange={this.props.handleChange}
+            login={this.props.login}
+            email={this.props.email}
+            pass={this.props.pass}
+          />
         </div>
       </header>
     )

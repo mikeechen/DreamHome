@@ -26,7 +26,11 @@ export default class HeaderModal extends React.Component {
         <div className="modal-content container">
           <span onClick={this.handleClose.bind(this)} className="closebtn">&times;</span>
           <div className="container">
-            <center><h2>Sign Up</h2></center>
+            <center>
+              <h2>Sign Up</h2>
+              <h4>Sign Up to Favorite Houses and Join Our Email List!</h4>
+            </center>
+            <br/>
             <form onSubmit={this.submit.bind(this)}>
               <div className="row">
                 <div className="five columns offset-by-one column">

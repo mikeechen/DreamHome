@@ -21,7 +21,7 @@ export default class Footer extends React.Component {
                 <li className="three columns"><a href="">Favorites</a></li> :
                 <li className="three columns"><a href="" onClick={this.signUpModalOpen.bind(this)}>Sign Up</a></li>
               }
-              <li className="three columns"><a href="">Contact</a></li>
+              <li className="three columns"><a href="mailto:RebeccaYu@remax.net">Contact</a></li>
               <li className="three columns"><a href="">About</a></li>
             </ul>
           </div>

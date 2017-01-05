@@ -25,12 +25,16 @@ export default class Main extends React.Component {
           <SearchHomes
             loggedIn={this.props.loggedIn}
             houseSelected={this.props.houseSelected}
+            firstName={this.props.firstName}
+            lastName={this.props.lastName}
           />
         )} />
         <Match pattern="/house" render={(props) => (
           <HousePage
             {...props}
             loggedIn={this.props.loggedIn}
+            firstName={this.props.firstName}
+            lastName={this.props.lastName}
           />
         )} />
       </div>
