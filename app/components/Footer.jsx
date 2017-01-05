@@ -2,8 +2,12 @@ import React from 'react';
 import { Link } from 'react-router';
 
 export default class Footer extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+  }
+
+  signUpModalOpen(e) {
+    this.props.signUpModalOpen(e);
   }
 
   render() {
@@ -13,7 +17,10 @@ export default class Footer extends React.Component {
           <div className="container">
             <ul>
               <li className="three columns"><Link to="/">Home</Link></li>
-              <li className="three columns"><a href="">Sign Up</a></li>
+              {this.props.loggedIn ?
+                <li className="three columns"><a href="">Favorites</a></li> :
+                <li className="three columns"><a href="" onClick={this.signUpModalOpen.bind(this)}>Sign Up</a></li>
+              }
               <li className="three columns"><a href="">Contact</a></li>
               <li className="three columns"><a href="">About</a></li>
             </ul>

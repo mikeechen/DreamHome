@@ -11,7 +11,7 @@ const { camelizeKeys, decamelizeKeys } = require('humps');
 
 const authorize = function(req, res, next) {
   jwt.verify(req.cookies.token, process.env.JWT_SECRET, (err, decoded) => {
-    if (err || decoded.userId !== 1) {
+    if (err) {
       res.verify = false;
 
       return next(boom.create(401, 'Unauthorized'));
@@ -56,7 +56,7 @@ router.get('/api/favorites/check', authorize, (req, res, next) => {
       } else {
         res.send(false);
       }
-    });
+    })
     .catch((err) => {
       next(err);
     });

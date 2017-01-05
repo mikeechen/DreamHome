@@ -2,6 +2,7 @@ import React from 'react';
 import { Match, Redirect } from 'react-router';
 import MainLanding from './MainLanding';
 import SearchHomes from './SearchHomes';
+import HousePage from './HousePage';
 
 export default class Main extends React.Component {
   constructor() {
@@ -15,10 +16,23 @@ export default class Main extends React.Component {
           localStorage.lat && localStorage.lng ? (
             <Redirect to="/search" />
           ) : (
-            <MainLanding />
+            <MainLanding
+              loggedIn={this.props.loggedIn}
+            />
           )
         )}/>
-        <Match pattern="/search" component={SearchHomes} />
+        <Match pattern="/search" render={() => (
+          <SearchHomes
+            loggedIn={this.props.loggedIn}
+            houseSelected={this.props.houseSelected}
+          />
+        )} />
+        <Match pattern="/house" render={(props) => (
+          <HousePage
+            {...props}
+            loggedIn={this.props.loggedIn}
+          />
+        )} />
       </div>
     )
   }

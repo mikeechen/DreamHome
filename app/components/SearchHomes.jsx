@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { observer } from 'mobx-react';
 import { observable, computed } from 'mobx';
+import { Match } from 'react-router';
+import { notify } from 'react-notify-toast';
 import Autocomplete from 'react-google-autocomplete';
 import axios from 'axios';
 import Map from './Map';
@@ -28,6 +30,8 @@ import Modal from './Modal';
     this.houseSelect = this.houseSelect.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.handleFavorite = this.handleFavorite.bind(this);
+    this.deleteFavorite = this.deleteFavorite.bind(this);
     this.lat = parseFloat(localStorage.lat) || 44.5535686;
     this.lng = parseFloat(localStorage.lng) || -123.3381089;
     if (localStorage.lat) {
@@ -188,6 +192,44 @@ import Modal from './Modal';
     this.markers = markClose;
   }
 
+  handleFavorite(id) {
+    axios({
+      method: 'post',
+      url: 'api/favorites',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+        listingId: id
+      }
+    })
+    .then(res => {
+      notify.show('Added to favorites!', 'success', 3000);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  }
+
+  deleteFavorite(id) {
+    axios({
+      method: 'delete',
+      url: 'api/favorites',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+        listingId: id
+      }
+    })
+    .then(res => {
+      notify.show('Deleted from favorites!', 'success', 3000);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  }
+
   componentDidMount() {
     this.searchAround(this.lat, this.lng);
   }
@@ -250,6 +292,9 @@ import Modal from './Modal';
           ref="modal"
           closeModal={this.closeModal}
           house={this.house}
+          loggedIn={this.props.loggedIn}
+          favorite={this.handleFavorite}
+          deleteFavorite={this.deleteFavorite}
         />
       </div>
     )

@@ -4,9 +4,8 @@ import { Link } from 'react-router';
 import HeaderModal from './HeaderModal';
 
 export default class Header extends React.Component {
-  constructor() {
-    super();
-    this.signUpModalClose = this.signUpModalClose.bind(this);
+  constructor(props) {
+    super(props);
   }
 
   handleChange(e) {
@@ -31,14 +30,7 @@ export default class Header extends React.Component {
   }
 
   signUpModalOpen(e) {
-    e.preventDefault();
-    const modal = ReactDOM.findDOMNode(this.refs.headerModal);
-    modal.style.display = 'block';
-  }
-
-  signUpModalClose() {
-    const modal = ReactDOM.findDOMNode(this.refs.headerModal);
-    modal.style.display = 'none';
+    this.props.signUpModalOpen(e);
   }
 
   render() {
@@ -49,7 +41,10 @@ export default class Header extends React.Component {
             <ul>
               <li><Link to="/">Home</Link></li>
               <li><Link to="/search">Search For Homes</Link></li>
-              <li><a href="" onClick={this.signUpModalOpen.bind(this)}>Sign Up</a></li>
+              {this.props.loggedIn ?
+                <li><a href="">Favorites</a></li> :
+                <li><a href="" onClick={this.signUpModalOpen.bind(this)}>Sign Up</a></li>
+              }
               <li><a href="">Contact</a></li>
               <li><a href="">About</a></li>
               {this.props.loggedIn ?
@@ -92,18 +87,6 @@ export default class Header extends React.Component {
             </form>
           </div>
         </div>
-        <HeaderModal
-          ref="headerModal"
-          signUp={this.props.signUp}
-          signUpModalClose={this.signUpModalClose}
-          handleChange={this.props.handleChange}
-          firstName={this.props.firstName}
-          lastName={this.props.lastName}
-          age={this.props.age}
-          phoneNumber={this.props.phoneNumber}
-          email={this.props.email}
-          pass={this.props.pass}
-        />
       </header>
     )
   }

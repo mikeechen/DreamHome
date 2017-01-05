@@ -1,13 +1,19 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
+import { Link } from 'react-router';
+import axios from 'axios';
+import HousePage from './HousePage';
+import InfoRow from './InfoRow';
 
 @observer export default class Modal extends React.Component {
   @observable photo = '';
+  @observable favorite = false;
 
   constructor(props) {
     super(props);
     this.checkImage = this.checkImage.bind(this);
+    this.checkFavorite = this.checkFavorite.bind(this);
   }
 
   handleClick() {
@@ -21,45 +27,92 @@ import { observable } from 'mobx';
     img.src = photo;
   }
 
+  checkFavorite() {
+    if (this.props.house.id && this.props.loggedIn) {
+      axios({
+        method: 'get',
+        url: `api/favorites/check?listingId=${this.props.house.id}`,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(res => {
+        this.favorite = res.data;
+      })
+      .catch(err => {
+        console.error(err);
+      });
+    }
+  }
+
+  handleFavoriteClick() {
+    this.props.favorite(this.props.house.id);
+    this.favorite = !this.favorite;
+  }
+
+  handleDeleteClick() {
+    this.props.deleteFavorite(this.props.house.id);
+    this.favorite = !this.favorite;
+  }
+
+  shouldComponentUpdate() {
+    return !(this.photo === this.props.photo);
+  }
+
+  componentWillUpdate() {
+    this.checkFavorite();
+  }
+
+  componentWillMount() {
+    this.checkFavorite();
+  }
+
   render() {
     if (this.props.house.photo) {
       this.checkImage(this.props.house.photo);
     }
 
+    const favoriteButt = (
+      <div className="one column">
+        {
+          this.favorite ? (
+            <i onClick={this.handleDeleteClick.bind(this)} className="material-icons icons">favorite</i>
+          ) : (
+            <i onClick={this.handleFavoriteClick.bind(this)} className="material-icons icons">favorite_border</i>
+          )
+        }
+      </div>
+    )
+
     return (
       <div className="modal">
         <div className="modal-content container">
           <span onClick={this.handleClick.bind(this)} className="closebtn">&times;</span>
-          <div className="row inforow">
-            <div className="three columns infocolumn">
-              <p className="infotag">Price: </p>
-              <h3>{this.props.house.price}</h3>
-            </div>
-            <div className="two columns infocolumn">
-              <p className="infotag">Square Feet: </p>
-              <h3>{this.props.house.sqFt}</h3>
-            </div>
-            <div className="two columns infocolumn">
-              <p className="infotag">Beds: </p>
-              <h3>{this.props.house.beds}</h3>
-            </div>
-            <div className="two columns infocolumn">
-              <p className="infotag">Baths: </p>
-              <h3>{this.props.house.baths}</h3>
-            </div>
-            <div className="two columns lastinfocolumn">
-              <p className="infotag">Yr Built: </p>
-              <h3>{this.props.house.yearBuilt}</h3>
-            </div>
-          </div>
+          <InfoRow
+            house={this.props.house}
+          />
           <div className="row">
             <div className="housepicrow">
-              <img className="u-full-width ousepic" src={this.photo}/>
+              <img className="u-full-width housepic" src={this.photo}/>
             </div>
           </div>
           <div className="row houseaddr">
             <h3>{this.props.house.address}</h3>
-            {/* <p>{this.props.house.remarks}</p> */}
+          </div>
+          <div className="row">
+            {this.props.loggedIn ? favoriteButt : null }
+            <div className="two columns">
+              <Link
+                className="button"
+                to={{ pathname: '/house', query: { id: this.props.house.id } }}
+                target="_blank"
+                >
+                Learn More
+              </Link>
+            </div>
+            <div className="three columns">
+              <a className="button" href={`mailto:RebeccaYu@remax.com`} target="_blank">Contact Rebecca!</a>
+            </div>
           </div>
         </div>
       </div>

@@ -102,16 +102,19 @@ import Reviews from './Reviews';
               <h5 id="subtitle">Next Step: Your Dream.</h5>
               <form className="search-form" onSubmit={this.handleSubmit.bind(this)}>
                 <h4 id="start-header">Start Your Search Here:</h4>
-                <Autocomplete
-                  id="inputbox"
-                  type="text"
-                  placeholder="Enter the address you want to search around"
-                  onPlaceSelected={this.selectPlace.bind(this)}
-                  types={['address']}
-                  componentRestrictions={{country: 'us'}}
-                  onChange={this.handleChange.bind(this)}
-                />
-                <input className="button button-primary" type="submit" placeholder="submit"/>
+                <div className="row">
+                  <Autocomplete
+                    id="inputbox"
+                    className="ten columns"
+                    type="text"
+                    placeholder="Enter the address you want to search around"
+                    onPlaceSelected={this.selectPlace.bind(this)}
+                    types={['address']}
+                    componentRestrictions={{country: 'us'}}
+                    onChange={this.handleChange.bind(this)}
+                  />
+                  <input className="button button-primary" type="submit" placeholder="submit"/>
+                </div>
               </form>
             </div>
           </div>

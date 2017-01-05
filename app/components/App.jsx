@@ -9,6 +9,7 @@ import Admin from './Admin';
 import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
+import HeaderModal from './HeaderModal';
 
 @observer export default class App extends React.Component {
   @observable admin = false;
@@ -27,6 +28,8 @@ import Main from './Main';
     this.logout = this.logout.bind(this);
     this.signUp = this.signUp.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.signUpModalOpen = this.signUpModalOpen.bind(this);
+    this.signUpModalClose = this.signUpModalClose.bind(this);
   }
 
   handleChange(e) {
@@ -86,8 +89,10 @@ import Main from './Main';
       });
   }
 
-  signUp(e, node) {
+  signUp(e) {
     e.preventDefault();
+    const modal = ReactDOM.findDOMNode(this.refs.headerModal);
+
     axios({
       method: 'post',
       url: 'api/users',
@@ -111,12 +116,23 @@ import Main from './Main';
       this.email = '';
       this.pass = '';
       this.checkLoggedInStatus();
-      node.style.display = 'none';
+      modal.style.display = 'none';
       notify.show('Signed Up!', 'success', 3000);
     })
     .catch(err => {
       notify.show(err.response.data, 'error', 3000);
     });
+  }
+
+  signUpModalOpen(e) {
+    e.preventDefault();
+    const modal = ReactDOM.findDOMNode(this.refs.headerModal);
+    modal.style.display = 'block';
+  }
+
+  signUpModalClose() {
+    const modal = ReactDOM.findDOMNode(this.refs.headerModal);
+    modal.style.display = 'none';
   }
 
   componentWillMount() {
@@ -128,26 +144,39 @@ import Main from './Main';
       <BrowserRouter>
         <div className="body">
           <Header
+            login={this.login}
+            logout={this.logout}
+            loggedIn={this.loggedIn}
+            signUpModalOpen={this.signUpModalOpen}
+            handleChange={this.handleChange}
+            email={this.email}
+            pass={this.pass}
+          />
+          <Notifications />
+          <main className="main">
+              { this.admin ?
+                <Admin /> :
+                <Main
+                  loggedIn={this.loggedIn}
+                />
+              }
+          </main>
+          <Footer
+            signUpModalOpen={this.signUpModalOpen}
+            loggedIn={this.loggedIn}
+          />
+          <HeaderModal
+            ref="headerModal"
+            signUp={this.signUp}
+            signUpModalClose={this.signUpModalClose}
+            handleChange={this.handleChange}
             firstName={this.firstName}
             lastName={this.lastName}
             age={this.age}
             phoneNumber={this.phoneNumber}
             email={this.email}
             pass={this.pass}
-            handleChange={this.handleChange}
-            login={this.login}
-            logout={this.logout}
-            loggedIn={this.loggedIn}
-            signUp={this.signUp}
           />
-          <Notifications />
-          <main className="main">
-              { this.admin ?
-                <Admin /> :
-                <Main />
-              }
-          </main>
-          <Footer />
         </div>
       </BrowserRouter>
     );

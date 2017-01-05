@@ -315,12 +315,50 @@ p {
   margin: 2rem 0 0;
 }
 
+.icons {
+  line-height: inherit;
+  cursor: pointer;
+  color: red;
+}
+
+.minimap {
+  margin-top: 6rem;
+}
+
+.backgroundrow {
+  background-color: #efefef;
+}
+
+.houseidpic {
+  margin-top: 2rem;
+  border: none;
+}
+
+.houseinfopic {
+  height: 55vh;
+}
+
+.infoheader {
+  margin-bottom: 0;
+}
+
+#favoritebutton {
+  position: relative;
+  z-index: 1;
+  bottom: 6rem;
+  margin-bottom: -6rem;
+}
+
 #title {
   text-align: center;
 }
 
 #subtitle {
-  margin-left: 20rem;
+  margin-left: 25rem;
+}
+
+#start-header {
+  margin-left: 5rem;
 }
 
 #login {
@@ -333,13 +371,10 @@ p {
   padding-top: 1rem;
 }
 
-#start-header {
-  color:
-}
-
 #inputbox {
-  width: 80%;
-  margin-right: 2.5rem;
+  width: 70%;
+  margin-left: 5rem;
+  margin-right: 1rem;
 }
 
 #zillow {
@@ -348,4 +383,25 @@ p {
 
 #reviewer {
   margin-bottom: 0.5rem;
+}
+
+#addressheader {
+  margin-bottom: 0;
+}
+
+#houseinforow {
+  font-size: 150%;
+}
+
+#unit {
+  font-size: 70%;
+}
+
+#remarks {
+  margin-top: 2rem;
+}
+
+#notes {
+  font-size: 150%;
+  margin-bottom: 1rem;
 }

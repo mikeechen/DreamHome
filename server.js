@@ -44,7 +44,8 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(require('./routes/users'));
 app.use(require('./routes/token'));
-app.use(require('./routes/listings'))
+app.use(require('./routes/listings'));
+app.use(require('./routes/favorites'));
 //routes end here
 
 app.use((_req, res) => {
