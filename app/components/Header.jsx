@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 import HeaderModal from './HeaderModal';
 import LoginForm from './LoginForm';
+import Favorites from './Favorites';
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -33,11 +34,11 @@ export default class Header extends React.Component {
               <li><Link to="/">Home</Link></li>
               <li><Link to="/search">Search For Homes</Link></li>
               {this.props.loggedIn ?
-                <li><a href="">Favorites</a></li> :
+                <li><a href="" onClick={this.favoriteForm.bind(this)}>Favorites</a></li> :
                 <li><a href="" onClick={this.signUpModalOpen.bind(this)}>Sign Up</a></li>
               }
               <li><a href="mailto:RebeccaYu@remax.net" target="_blank">Contact</a></li>
-              <li><a href="">About</a></li>
+              <li><a href="#">About</a></li>
               {this.props.loggedIn ?
                 <li id="login"><a href="" onClick={this.logout.bind(this)}>Log Out</a></li> :
                 <li id="login"><a href="" onClick={this.loginForm.bind(this)}>Log In</a></li>

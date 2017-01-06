@@ -22,13 +22,14 @@ export default class Footer extends React.Component {
                 <li className="three columns"><a href="" onClick={this.signUpModalOpen.bind(this)}>Sign Up</a></li>
               }
               <li className="three columns"><a href="mailto:RebeccaYu@remax.net">Contact</a></li>
-              <li className="three columns"><a href="">About</a></li>
+              <li className="three columns"><a href="#">About</a></li>
             </ul>
           </div>
         </div>
         <div className="row">
           <div className="container">
               <div id="copyright" className="nine columns">
+              <p id="easteregg"><a href="https://mikeechen-jquerycalc.surge.sh/">Need a Calculator?</a></p>
               <p>© Dream Homes By Rebecca Yu 2016</p>
               <p>Powered By © Zillow, Inc., 2006-2016. Use is subject to Terms of Use</p>
               </div>

@@ -37,7 +37,7 @@ router.get('/api/favorites', authorize, (req, res, next) => {
 
       res.send(favorites);
     })
-    .catc((err) => {
+    .catch((err) => {
       next(err);
     });
 });

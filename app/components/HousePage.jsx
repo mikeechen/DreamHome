@@ -14,12 +14,10 @@ import HouseId from './HouseId';
 
   constructor(props) {
     super(props);
-    if (this.props.location.query) {
-      this.houseId = this.props.location.query.id;
-    }
     this.checkFavorite = this.checkFavorite.bind(this);
     this.handleFavorite = this.handleFavorite.bind(this);
     this.deleteFavorite = this.deleteFavorite.bind(this);
+    this.getHouse = this.getHouse.bind(this);
   }
 
   checkFavorite(id) {
@@ -72,14 +70,14 @@ import HouseId from './HouseId';
     });
   }
 
-  componentDidMount() {
-    if (this.houseId === 0) {
+  getHouse(id) {
+    if (id === 0) {
       return false;
     }
 
     axios({
       method: 'get',
-      url: `api/listings/${this.houseId}`,
+      url: `api/listings/${id}`,
       headers: {
         'Content-Type': 'application/json'
       }
@@ -99,6 +97,24 @@ import HouseId from './HouseId';
     .catch(err => {
       console.error(err);
     });
+  }
+
+  componentWillMount() {
+    this.houseId = this.props.location.query.id;
+    this.getHouse(this.houseId);
+  }
+
+  shouldComponentUpdate(nextProps) {
+    return this.houseId !== nextProps.location.query.id;
+  }
+
+  componentWillUpdate(nextProps) {
+    if (this.houseId === nextProps.location.query.id) {
+      return false;
+    } else {
+      this.houseId = nextProps.location.query.id;
+      this.getHouse(this.houseId);
+    }
   }
 
   render() {

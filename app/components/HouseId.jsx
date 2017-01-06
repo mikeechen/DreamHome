@@ -171,7 +171,7 @@ import MiniMap from './MiniMap';
             >
             <div className="row" id="imagerow">
               <img id="buttonimage" className="three columns" src="./img/Rebecca_Circle_Favicon.png"/>
-              <h3 id="contactbutton" className="nine columns">CONTACT REBECCA!</h3>
+              <h4 id="contactbutton" className="nine columns">CONTACT REBECCA</h4>
             </div>
           </a>
         </div>

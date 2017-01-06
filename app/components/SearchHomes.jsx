@@ -31,7 +31,6 @@ import Modal from './Modal';
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.handleFavorite = this.handleFavorite.bind(this);
-    this.deleteFavorite = this.deleteFavorite.bind(this);
     this.lat = parseFloat(localStorage.lat) || 44.5535686;
     this.lng = parseFloat(localStorage.lng) || -123.3381089;
     if (localStorage.lat) {
@@ -211,25 +210,6 @@ import Modal from './Modal';
     });
   }
 
-  deleteFavorite(id) {
-    axios({
-      method: 'delete',
-      url: 'api/favorites',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: {
-        listingId: id
-      }
-    })
-    .then(res => {
-      notify.show('Deleted from favorites!', 'success', 3000);
-    })
-    .catch(err => {
-      console.error(err);
-    });
-  }
-
   componentDidMount() {
     this.searchAround(this.lat, this.lng);
   }
@@ -297,6 +277,7 @@ import Modal from './Modal';
           deleteFavorite={this.deleteFavorite}
           firstName={this.props.firstName}
           lastName={this.props.lastName}
+          deleteFavorite={this.props.deleteFavorite}
         />
       </div>
     )

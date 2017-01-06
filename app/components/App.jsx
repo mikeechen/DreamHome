@@ -10,6 +10,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
 import HeaderModal from './HeaderModal';
+import Favorites from './Favorites';
 
 @observer export default class App extends React.Component {
   @observable admin = false;
@@ -22,6 +23,7 @@ import HeaderModal from './HeaderModal';
   @observable pass = '';
   @observable fName = '';
   @observable lName = '';
+  @observable favorites = [];
 
   constructor() {
     super();
@@ -32,6 +34,9 @@ import HeaderModal from './HeaderModal';
     this.handleChange = this.handleChange.bind(this);
     this.signUpModalOpen = this.signUpModalOpen.bind(this);
     this.signUpModalClose = this.signUpModalClose.bind(this);
+    this.findFavorites = this.findFavorites.bind(this);
+    this.deleteFavorite = this.deleteFavorite.bind(this);
+    this.favoriteFormClose = this.favoriteFormClose.bind(this);
   }
 
   handleChange(e) {
@@ -128,6 +133,38 @@ import HeaderModal from './HeaderModal';
     });
   }
 
+  findFavorites() {
+    if (this.loggedIn) {
+      axios.get('api/favorites')
+        .then(res => {
+          this.favorites = res.data;
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    }
+  }
+
+  deleteFavorite(id) {
+    axios({
+      method: 'delete',
+      url: 'api/favorites',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+        listingId: id
+      }
+    })
+    .then(res => {
+      this.findFavorites();
+      notify.show('Deleted from favorites!', 'success', 3000);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  }
+
   signUpModalOpen(e) {
     e.preventDefault();
     const modal = ReactDOM.findDOMNode(this.refs.headerModal);
@@ -139,8 +176,25 @@ import HeaderModal from './HeaderModal';
     modal.style.display = 'none';
   }
 
+  favoriteForm(e) {
+    e.preventDefault();
+    const favoriteNode = ReactDOM.findDOMNode(this.refs.favorites);
+    if (favoriteNode.style.display === 'none' || !favoriteNode.style.display) {
+      this.props.favoriteFind();
+      favoriteNode.style.display = 'block';
+    } else {
+      favoriteNode.style.display = 'none';
+    }
+  }
+
+  favoriteFormClose() {
+    const favoriteNode = ReactDOM.findDOMNode(this.refs.favorites);
+    favoriteNode.style.display = 'none';
+  }
+
   componentWillMount() {
     this.checkLoggedInStatus();
+    this.findFavorites();
   }
 
   render() {
@@ -157,6 +211,9 @@ import HeaderModal from './HeaderModal';
             pass={this.pass}
             firstName={this.fName}
             lastName={this.lName}
+            favorites={this.favorites}
+            favoriteFind={this.findFavorites}
+            deleteFavorite={this.deleteFavorite}
           />
           <Notifications />
           <main className="main">
@@ -166,6 +223,7 @@ import HeaderModal from './HeaderModal';
                   loggedIn={this.loggedIn}
                   firstName={this.fName}
                   lastName={this.lName}
+                  deleteFavorite={this.deleteFavorite}
                 />
               }
           </main>
@@ -184,6 +242,13 @@ import HeaderModal from './HeaderModal';
             phoneNumber={this.phoneNumber}
             email={this.email}
             pass={this.pass}
+          />
+          <Favorites
+            ref="favorites"
+            favoriteClose={this.favoriteFormClose}
+            firstName={this.fName}
+            favorites={this.favorites}
+            deleteFavorite={this.deleteFavorite}
           />
         </div>
       </BrowserRouter>

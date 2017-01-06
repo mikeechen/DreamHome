@@ -262,6 +262,7 @@ p {
   width: 100%;
   height: 100%;
   overflow: auto;
+  background-color: rgb(0,0,0);
   background-color: rgba(0,0,0,0.4);
 }
 
@@ -279,6 +280,29 @@ p {
   color: #aaaaaa;
   font-size: 300%;
   cursor: pointer;
+}
+
+.closebtn:hover {
+  color: #686868;
+}
+
+.favorite-modal {
+  top: 0;
+  padding-top: 0;
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.3s;
+  animation-name: animatetop;
+  animation-duration: 0.3s
+}
+
+@-webkit-keyframes animatetop {
+    from {top: -30rem; opacity:0}
+    to {top: 0rem; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top: -30rem; opacity:0}
+    to {top: 0rem; opacity:1}
 }
 
 .inforow {
@@ -354,6 +378,76 @@ p {
 
 .info {
   font-weight: bold;
+}
+
+.favoriterow {
+  margin: 0 2rem 1rem 2rem;
+  border: 1px solid #eee;
+  width: 90%;
+  margin-bottom: -3.5rem;
+}
+
+.favoriterow:hover {
+  border: 1px solid #222;
+}
+
+.unfavoritebutton {
+  position: relative;
+  left: 73%;
+  bottom: 5rem;
+  font-size: 200%;
+  cursor: pointer;
+  color: #adadad;
+}
+
+.unfavoritebutton:hover {
+  color: #ff0f0f;
+}
+
+.favoriteanchor {
+  text-decoration: none;
+}
+
+.favoritebuttonrow {
+  margin-top: -2.4rem;
+  margin-bottom: -0.7rem;
+}
+
+.thumbnailimg {
+  height: 11rem;
+  width: auto;
+}
+
+.favoriteheaderrow {
+  margin-top: 3rem;
+  margin-bottom: -2rem;
+  text-align: left;
+}
+
+.favoriteheader {
+  padding-left: 2rem;
+  font-size: 140%;
+  color: #000;
+  border-right: 1px solid #222;
+}
+
+.favoriteheader-last {
+  border-right: 0;
+}
+
+.favoriteheadertext {
+  font-size: 100%;
+  text-align: left;
+}
+
+.no-padding {
+  padding-left: 1rem;
+}
+
+.favoriteicon {
+  position: relative;
+  top: 0;
+  left: 0.2rem;
 }
 
 #favoritebutton {
@@ -447,7 +541,22 @@ p {
 }
 
 #contactbutton {
-  margin-top: 2.3rem;
-  margin-left: 1rem;
-  color: #ff919e;
+  margin-top: 3.3rem;
+  margin-left: 0rem;
+  text-align: center;
+  color: #222;
+  font-size: 150%;
+}
+
+#easteregg {
+  float: right;
+}
+
+#easteregg a {
+  text-decoration: none;
+  color: #5e6063;
+}
+
+#easteregg a:hover {
+  color: #fff;
 }

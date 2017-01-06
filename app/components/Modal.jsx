@@ -119,7 +119,7 @@ import InfoRow from './InfoRow';
               <a
                 className="button"
                 href={`mailto:RebeccaYu@remax.net?subject=${subject}&body=${encodeURIComponent(body)}`}
-                target="_blank">Contact Rebecca!</a>
+                target="_blank">Contact Rebecca</a>
             </div>
           </div>
         </div>

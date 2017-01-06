@@ -27,6 +27,7 @@ export default class Main extends React.Component {
             houseSelected={this.props.houseSelected}
             firstName={this.props.firstName}
             lastName={this.props.lastName}
+            deleteFavorite={this.props.deleteFavorite}
           />
         )} />
         <Match pattern="/house" render={(props) => (
