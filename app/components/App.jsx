@@ -37,6 +37,7 @@ import Favorites from './Favorites';
     this.findFavorites = this.findFavorites.bind(this);
     this.deleteFavorite = this.deleteFavorite.bind(this);
     this.favoriteFormClose = this.favoriteFormClose.bind(this);
+    this.favoriteForm = this.favoriteForm.bind(this);
   }
 
   handleChange(e) {
@@ -61,7 +62,7 @@ import Favorites from './Favorites';
       node.classList.toggle('login-form-appear');
       this.email = '';
       this.pass = '';
-      notify.show('Logged In!', 'success', 3000);
+      notify.show('Logged In', 'success', 3000);
     })
     .catch((err) => {
       notify.show(err.response.data, 'error', 3000);
@@ -78,7 +79,7 @@ import Favorites from './Favorites';
         })
         .then((res) => {
           this.checkLoggedInStatus();
-          notify.show('Logged Out!', 'success', 3000);
+          notify.show('Logged Out', 'success', 3000);
         })
         .catch(err => {
           notify.show(err.response.data, 'error', 3000);
@@ -126,7 +127,7 @@ import Favorites from './Favorites';
       this.pass = '';
       this.checkLoggedInStatus();
       modal.style.display = 'none';
-      notify.show('Signed Up!', 'success', 3000);
+      notify.show('Signed Up', 'success', 3000);
     })
     .catch(err => {
       notify.show(err.response.data, 'error', 3000);
@@ -158,7 +159,7 @@ import Favorites from './Favorites';
     })
     .then(res => {
       this.findFavorites();
-      notify.show('Deleted from favorites!', 'success', 3000);
+      notify.show('Deleted from favorites', 'success', 3000);
     })
     .catch(err => {
       console.error(err);
@@ -180,7 +181,7 @@ import Favorites from './Favorites';
     e.preventDefault();
     const favoriteNode = ReactDOM.findDOMNode(this.refs.favorites);
     if (favoriteNode.style.display === 'none' || !favoriteNode.style.display) {
-      this.props.favoriteFind();
+      this.findFavorites();
       favoriteNode.style.display = 'block';
     } else {
       favoriteNode.style.display = 'none';
@@ -214,6 +215,7 @@ import Favorites from './Favorites';
             favorites={this.favorites}
             favoriteFind={this.findFavorites}
             deleteFavorite={this.deleteFavorite}
+            favoriteForm={this.favoriteForm}
           />
           <Notifications />
           <main className="main">
@@ -230,6 +232,7 @@ import Favorites from './Favorites';
           <Footer
             signUpModalOpen={this.signUpModalOpen}
             loggedIn={this.loggedIn}
+            favoriteForm={this.favoriteForm}
           />
           <HeaderModal
             ref="headerModal"

@@ -431,6 +431,13 @@ p {
   border-right: 1px solid #222;
 }
 
+.favoriteprice {
+  position: relative;
+  top: 0.5rem;
+  font-size: 180%;
+  color: #000;
+}
+
 .favoriteheader-last {
   border-right: 0;
 }
@@ -438,6 +445,7 @@ p {
 .favoriteheadertext {
   font-size: 100%;
   text-align: left;
+  margin-top: -1rem;
 }
 
 .no-padding {

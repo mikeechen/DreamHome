@@ -63,7 +63,7 @@ import { observer } from 'mobx-react';
         <div className="infodiv" ref='infodiv'>
           <div className="row">
             <div className="one column">
-              <div className={this.props.status === 'ACT' ? 'active' : 'pending' }>✺</div>
+              <div className={this.props.status === 'ACT' ? 'active' : 'pending' }>●</div>
             </div>
             <div className="sale-rent">&nbsp;{this.props.status === 'ACT' ? this.props.saleRent : 'Pending' }</div>
           </div>

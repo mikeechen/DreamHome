@@ -43,7 +43,7 @@ import HouseId from './HouseId';
     })
     .then(res => {
       this.checkFavorite(id);
-      notify.show('Added to favorites!', 'success', 3000);
+      notify.show('Added to favorites', 'success', 3000);
     })
     .catch(err => {
       console.error(err);

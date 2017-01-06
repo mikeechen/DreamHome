@@ -203,7 +203,7 @@ import Modal from './Modal';
       }
     })
     .then(res => {
-      notify.show('Added to favorites!', 'success', 3000);
+      notify.show('Added to favorites', 'success', 3000);
     })
     .catch(err => {
       console.error(err);

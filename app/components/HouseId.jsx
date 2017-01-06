@@ -92,7 +92,7 @@ import MiniMap from './MiniMap';
         </div>
         <div className="row" id="statusrow">
           <h4>
-            <span className={this.props.house.status === 'ACT' ? 'active' : 'pending'}>✺ </span>
+            <span className={this.props.house.status === 'ACT' ? 'active' : 'pending'}>● </span>
             Status: {this.props.house.status === 'ACT' ? 'Active' : 'Pending' }</h4>
         </div>
         <div className="row" id="remarks">

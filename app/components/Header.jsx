@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 import HeaderModal from './HeaderModal';
 import LoginForm from './LoginForm';
-import Favorites from './Favorites';
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -23,6 +22,10 @@ export default class Header extends React.Component {
 
   signUpModalOpen(e) {
     this.props.signUpModalOpen(e);
+  }
+
+  favoriteForm(e) {
+    this.props.favoriteForm(e);
   }
 
   render() {

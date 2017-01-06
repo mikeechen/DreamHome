@@ -10,6 +10,10 @@ export default class Footer extends React.Component {
     this.props.signUpModalOpen(e);
   }
 
+  favoriteForm(e) {
+    this.props.favoriteForm(e);
+  }
+
   render() {
     return (
       <footer>
@@ -18,7 +22,7 @@ export default class Footer extends React.Component {
             <ul>
               <li className="three columns"><Link to="/">Home</Link></li>
               {this.props.loggedIn ?
-                <li className="three columns"><a href="">Favorites</a></li> :
+                <li className="three columns"><a href="" onClick={this.favoriteForm.bind(this)}>Favorites</a></li> :
                 <li className="three columns"><a href="" onClick={this.signUpModalOpen.bind(this)}>Sign Up</a></li>
               }
               <li className="three columns"><a href="mailto:RebeccaYu@remax.net">Contact</a></li>

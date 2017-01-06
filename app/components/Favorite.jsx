@@ -36,20 +36,17 @@ import { observable } from 'mobx';
         <div className="row favoriterow">
           <span className={this.props.status === 'ACT' ?
             'favoriteicon active' :
-            'favoriteicon pending' }>✺</span>
+            'favoriteicon pending' }>●</span>
           <div className="u-full-width">
             <Link className="favoriteanchor" onClick={this.houseClick.bind(this)} to={{ pathname: '/house', query: { id: this.props.id } }}>
               <div className="row favoritebuttonrow">
                 <img className="thumbnailimg three columns" src={this.photo}/>
                 <div className="row nine columns favoriteheaderrow">
                   <h4 className="eight columns favoriteheader">{this.props.address}</h4>
-                  <h4 className="two columns favoriteheader">{this.props.beds}</h4>
-                  <h4 className="two columns favoriteheader favoriteheader-last">{this.props.baths}</h4>
+                  <h4 className="four columns favoriteprice">{this.props.price}</h4>
                 </div>
                 <div className="row nine columns">
                   <p className="eight columns favoriteheader favoriteheadertext">{this.props.city}, {this.props.state} {this.props.zip}</p>
-                  <p className="two columns favoriteheader favoriteheadertext no-padding">Beds</p>
-                  <p className="two columns favoriteheader favoriteheadertext favoriteheader-last no-padding">Baths</p>
                 </div>
               </div>
             </Link>
