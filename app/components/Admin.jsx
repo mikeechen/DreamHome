@@ -17,7 +17,7 @@ import { observer } from 'mobx-react';
   completeFunction (results) {
     const requests = results.data.map((elm) => {
       const body = {
-        status: elm.Stat, //.substring(2, elm.Stat.length - 1),
+        status: elm.Stat.substring(2, elm.Stat.length - 1),
         mlsNumber: elm['MLS #'],
         address: elm['Full Address'],
         city: elm.City,
