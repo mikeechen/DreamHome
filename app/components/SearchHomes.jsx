@@ -244,18 +244,18 @@ import Modal from './Modal';
             </div>
           </form>
         </div>
-        <div className="row">
+        <div className="row maprelative">
           <div className="seven columns">
-            <Map
-              lat={this.lat}
-              lng={this.lng}
-              markers={this.markers}
-              onMapLoad={this.handleMapLoad}
-              onCenterChanged={this.handleCenterChange}
-              onMarkerClick={this.handleMarkerClick}
-              onMarkerClose={this.handleMarkerClose}
-              onSearchBoxMount={this.handleSearchBoxMount}
-            />
+              <Map
+                lat={this.lat}
+                lng={this.lng}
+                markers={this.markers}
+                onMapLoad={this.handleMapLoad}
+                onCenterChanged={this.handleCenterChange}
+                onMarkerClick={this.handleMarkerClick}
+                onMarkerClose={this.handleMarkerClose}
+                onSearchBoxMount={this.handleSearchBoxMount}
+              />
           </div>
           <div className="row">
             <div className="houses">

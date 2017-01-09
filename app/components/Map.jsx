@@ -120,19 +120,23 @@ const HomeMap = withGoogleMap(props => (
       ]
     }}
   >
-
     {props.markers.map((marker, index) => (
       <Marker
         {...marker}
         onClick={() => props.onMarkerClick(marker)}
-      >
-        {marker.showInfo && (
-          <InfoWindow onCloseClick={() => props.onMarkerClose(marker)}>
-            <div>{marker.infoContent}</div>
-          </InfoWindow>
-        )}
-      </Marker>
-    ))}
+        >
+          {marker.showInfo && (
+            <InfoWindow onCloseClick={() => props.onMarkerClose(marker)}>
+              <div>{marker.infoContent}</div>
+            </InfoWindow>
+          )}
+        </Marker>
+      ))}
+      <Marker
+        icon='https://www.daftlogic.com/images/cross-hairs.gif'
+        shape={{ coords:[0,0,0,0], type:'rect'}}
+        position={{ lat: props.lat, lng: props.lng }}
+      />
   </GoogleMap>
 ));
 
