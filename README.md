@@ -1,21 +1,11 @@
-# Brunch + React + Babel/ES6
+# Dream Homes by Rebecca
 
-This is a modern JS skeleton with React for [Brunch](http://brunch.io).
+An online destination for current and future clients of real-estate agent Rebecca Yu searching in the Corvallis, OR area. This customized experience enables house hunters to easily discover listings, favorite properties of interest, and contact the agent.
 
 ## Installation
 
-Clone this repo manually or use `brunch new dir -s brunch/with-react`
+No installation necessary.
 
 ## Getting started
 
-* Install (if you don't have them):
-    * [Node.js](http://nodejs.org): `brew install node` on OS X
-    * [Brunch](http://brunch.io): `npm install -g brunch`
-    * Brunch plugins and app dependencies: `npm install`
-* Run:
-    * `brunch watch --server` — watches the project with continuous rebuild. This will also launch HTTP server with [pushState](https://developer.mozilla.org/en-US/docs/Web/Guide/API/DOM/Manipulating_the_browser_history).
-    * `brunch build --production` — builds minified project for production
-* Learn:
-    * `public/` dir is fully auto-generated and served by HTTP server.  Write your code in `app/` dir.
-    * Place static files you want to be copied from `app/assets/` to `public/`.
-    * [Brunch site](http://brunch.io), [Getting started guide](https://github.com/brunch/brunch-guide#readme)
+To test the app, please go to http://dreamhomesbyrebeccayu.herokuapp.com/, create and account, or simply start looking for properties on Sale in the Corvallis, OR area!
