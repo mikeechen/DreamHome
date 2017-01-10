@@ -28,7 +28,7 @@ export default class LoginForm extends React.Component {
               id="email"
               type="email"
               name="email"
-              placeholder="blah@blah.com"
+              placeholder="username@mail.com"
             />
           </div>
           <div className="row">
