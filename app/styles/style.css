@@ -458,6 +458,10 @@ p {
   left: 0.2rem;
 }
 
+.filters {
+  margin-left: 1rem;
+}
+
 #favoritebutton {
   position: relative;
   z-index: 1;
@@ -474,7 +478,7 @@ p {
 }
 
 #start-header {
-
+  color: #000;
 }
 
 #login {

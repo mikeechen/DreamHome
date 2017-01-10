@@ -19,6 +19,8 @@ import Modal from './Modal';
   @observable address = '';
   @observable _mapComponent;
   @observable house = {};
+  @observable minPrice = 0;
+  @observable maxPrice = 0;
 
   constructor() {
     super();
@@ -50,6 +52,16 @@ import Modal from './Modal';
     this.searchAround();
   }
 
+  minPriceChange(e) {
+    this.minPrice = parseInt(e.target.value);
+    this.searchAround();
+  }
+
+  maxPriceChange(e) {
+    this.maxPrice = parseInt(e.target.value);
+    this.searchAround();
+  }
+
   searchAround() {
     axios({
       method: 'post',
@@ -61,7 +73,20 @@ import Modal from './Modal';
       }
     })
     .then((res) => {
-      const newMarkers = res.data.map((elm, ind) => {
+      const newMarkers = res.data.filter((elm) => {
+        const price = parseInt(elm.price.replace('$', '').replace(',', ''));
+        if (this.maxPrice > 0) {
+          if (this.maxPrice > this.minPrice) {
+            return price > this.minPrice && price < this.maxPrice;
+          } else if (this.maxPrice < this.minPrice) {
+            return price > maxPrice && price < this.minPrice;
+          } else {
+            return price > minPrice || price > maxPrice;
+          }
+        } else {
+          return price > this.minPrice;
+        }
+      }).map((elm, ind) => {
         const { lat, long, address, state, zip, status, photo } = elm;
 
         return {
@@ -87,7 +112,20 @@ import Modal from './Modal';
         };
       });
       this.markers = newMarkers;
-      this.listings = res.data;
+      this.listings = res.data.filter((elm) => {
+        const price = parseInt(elm.price.replace('$', '').replace(',', ''));
+        if (this.maxPrice > 0) {
+          if (this.maxPrice > this.minPrice) {
+            return price > this.minPrice && price < this.maxPrice;
+          } else if (this.maxPrice < this.minPrice) {
+            return price > maxPrice && price < this.minPrice;
+          } else {
+            return price > minPrice || price > maxPrice;
+          }
+        } else {
+          return price > this.minPrice;
+        }
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -219,7 +257,7 @@ import Modal from './Modal';
       <div className="row">
         <div className="twelve columns mapform">
           <form onSubmit={this.handleSubmit.bind(this)}>
-            <div className="six columns offset-by-one mapsearch">
+            <div className="four columns offset-by-one mapsearch">
               <Autocomplete
                 type="text"
                 className="u-full-width"
@@ -230,13 +268,40 @@ import Modal from './Modal';
                 onChange={this.handleChange.bind(this)}
               />
             </div>
-            <div className="two columns">
+            <div className="one column filters">
               <label className="labels distance-label" htmlFor="distance">Radius</label>
               <select onChange={this.selectChange.bind(this)} className="u-full-width" id="distance">
                 <option value="1">1mi</option>
                 <option value="3">3mi</option>
                 <option value="5">5mi</option>
                 <option value="10">10mi</option>
+              </select>
+            </div>
+            <div className="two columns filters">
+              <label className="labels distance-label" htmlFor="distance">Min Price</label>
+              <select onChange={this.minPriceChange.bind(this)} className="u-full-width" id="distance">
+                <option value="0">0</option>
+                <option value="100000">$100,000+</option>
+                <option value="200000">$200,000+</option>
+                <option value="300000">$300,000+</option>
+                <option value="400000">$400,000+</option>
+                <option value="500000">$500,000+</option>
+              </select>
+            </div>
+            <div className="two columns filters">
+              <label className="labels distance-label" htmlFor="distance">Max Price</label>
+              <select onChange={this.maxPriceChange.bind(this)} className="u-full-width" id="distance">
+                <option value="0">0</option>
+                <option value="100000">$100,000</option>
+                <option value="200000">$200,000</option>
+                <option value="300000">$300,000</option>
+                <option value="400000">$400,000</option>
+                <option value="500000">$500,000</option>
+                <option value="600000">$600,000</option>
+                <option value="700000">$700,000</option>
+                <option value="800000">$800,000</option>
+                <option value="900000">$900,000</option>
+                <option value="1000000">$1,000,000</option>
               </select>
             </div>
             <div className="two columns mapsearch">
@@ -264,6 +329,8 @@ import Modal from './Modal';
                 markerClick={this.handleMarkerClick}
                 markerClose={this.handleMarkerClose}
                 houseSelect={this.houseSelect}
+                minPrice={this.minPrice}
+                maxPrice={this.maxPrice}
               />
             </div>
           </div>

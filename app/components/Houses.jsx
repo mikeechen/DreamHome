@@ -1,5 +1,6 @@
 import React from 'react';
 import House from './House';
+import Error from './Error';
 
 export default class Houses extends React.Component {
   constructor(props) {
@@ -28,7 +29,7 @@ export default class Houses extends React.Component {
 
     return (
       <div className="twelve columns">
-        {listingsArr}
+        {listingsArr.length > 0 ? listingsArr : <Error/>}
       </div>
     )
   }
