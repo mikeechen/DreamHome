@@ -177,6 +177,7 @@ import Modal from './Modal';
       const lng = result.lng;
       this.lat = lat;
       this.lng = lng;
+      this.searchAround();
     })
     .catch(err => {
       console.log(err);
