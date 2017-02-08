@@ -43,10 +43,6 @@ export default class HeaderModal extends React.Component {
                 </div>
               </div>
               <div className="row">
-                <div className="two columns offset-by-one column">
-                  <label htmlFor="age" className="labels">Age</label>
-                  <input value={this.props.age} onChange={this.handleChange} name="age" className="u-full-width" type="number" id="age" min="0"/>
-                </div>
                 <div className="four columns offset-by-one column">
                   <label htmlFor="phoneNumber" className="labels">Phone Number</label>
                   <input value={this.props.phoneNumber} onChange={this.handleChange} name="phoneNumber" className="u-full-width" type="text" id="phoneNumber" placeholder="xxxxxxxxxx"/>

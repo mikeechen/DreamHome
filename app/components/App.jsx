@@ -130,7 +130,8 @@ import Favorites from './Favorites';
       notify.show('Signed Up', 'success', 3000);
     })
     .catch(err => {
-      notify.show(err.response.data, 'error', 3000);
+      console.log(err.response);
+      notify.show(err.response.data.errors[0].messages[0], 'error', 3000);
     });
   }
 

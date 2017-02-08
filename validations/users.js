@@ -24,10 +24,7 @@ module.exports.post = {
       .required(),
 
     age: joi.number()
-      .integer()
-      .positive()
-      .label('Age')
-      .required(),
+      .label('Age'),
 
     phoneNumber: joi.string()
       .trim()
