@@ -89,10 +89,17 @@ import Favorites from './Favorites';
   checkLoggedInStatus() {
     axios.get('/api/token')
       .then((res) => {
-        this.admin = res.data.admin;
         this.loggedIn = res.data.loggedIn;
-        this.fName = res.data.firstName;
-        this.lName = res.data.lastName;
+
+        if (res.data.admin) {
+          this.admin = res.data.admin;
+        }
+        if (res.data.firstName) {
+          this.fName = res.data.firstName;
+        }
+        if (res.data.lastName) {
+          this.lName = res.data.lastName;
+        }
       })
       .catch((err) => {
         console.error(err);
