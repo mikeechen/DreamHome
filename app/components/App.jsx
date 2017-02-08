@@ -4,7 +4,7 @@ import Notifications, { notify } from 'react-notify-toast';
 import axios from 'axios';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
-import { BrowserRouter, Match, Redirect } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
 import Admin from './Admin';
 import Header from './Header';
 import Footer from './Footer';
@@ -112,7 +112,7 @@ import Favorites from './Favorites';
 
     axios({
       method: 'post',
-      url: 'api/users',
+      url: '/api/users',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -143,7 +143,7 @@ import Favorites from './Favorites';
 
   findFavorites() {
     if (this.loggedIn) {
-      axios.get('api/favorites')
+      axios.get('/api/favorites')
         .then(res => {
           this.favorites = res.data;
         })
@@ -156,7 +156,7 @@ import Favorites from './Favorites';
   deleteFavorite(id) {
     axios({
       method: 'delete',
-      url: 'api/favorites',
+      url: '/api/favorites',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -225,7 +225,7 @@ import Favorites from './Favorites';
             favoriteForm={this.favoriteForm}
           />
           <Notifications />
-          <main className="main">
+          <section className="main">
               { this.admin ?
                 <Admin /> :
                 <Main
@@ -235,7 +235,7 @@ import Favorites from './Favorites';
                   deleteFavorite={this.deleteFavorite}
                 />
               }
-          </main>
+          </section>
           <Footer
             signUpModalOpen={this.signUpModalOpen}
             loggedIn={this.loggedIn}
@@ -248,7 +248,6 @@ import Favorites from './Favorites';
             handleChange={this.handleChange}
             firstName={this.firstName}
             lastName={this.lastName}
-            age={this.age}
             phoneNumber={this.phoneNumber}
             email={this.email}
             pass={this.pass}

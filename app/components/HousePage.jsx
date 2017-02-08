@@ -21,7 +21,7 @@ import HouseId from './HouseId';
   }
 
   checkFavorite(id) {
-    axios.get(`api/favorites/check?listingId=${id}`)
+    axios.get(`/api/favorites/check?listingId=${id}`)
       .then(res => {
         this.favorite = res.data;
       })
@@ -33,7 +33,7 @@ import HouseId from './HouseId';
   handleFavorite(id) {
     axios({
       method: 'post',
-      url: 'api/favorites',
+      url: '/api/favorites',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -53,7 +53,7 @@ import HouseId from './HouseId';
   deleteFavorite(id) {
     axios({
       method: 'delete',
-      url: 'api/favorites',
+      url: '/api/favorites',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -77,7 +77,7 @@ import HouseId from './HouseId';
 
     axios({
       method: 'get',
-      url: `api/listings/${id}`,
+      url: `/api/listings/${id}`,
       headers: {
         'Content-Type': 'application/json'
       }
@@ -100,19 +100,19 @@ import HouseId from './HouseId';
   }
 
   componentWillMount() {
-    this.houseId = this.props.location.query.id;
+    this.houseId = parseInt(this.props.match.params.id);
     this.getHouse(this.houseId);
   }
 
   shouldComponentUpdate(nextProps) {
-    return this.houseId !== nextProps.location.query.id;
+    return this.houseId !== parseInt(nextProps.match.params.id);
   }
 
   componentWillUpdate(nextProps) {
-    if (this.houseId === nextProps.location.query.id) {
+    if (this.houseId === parseInt(nextProps.match.params.id)) {
       return false;
     } else {
-      this.houseId = nextProps.location.query.id;
+      this.houseId = parseInt(nextProps.match.params.id);
       this.getHouse(this.houseId);
     }
   }

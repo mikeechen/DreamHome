@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { observer } from 'mobx-react';
 import { observable, computed } from 'mobx';
-import { Match } from 'react-router';
+import { Route } from 'react-router-dom';
 import { notify } from 'react-notify-toast';
 import Autocomplete from 'react-google-autocomplete';
 import axios from 'axios';
@@ -65,7 +65,7 @@ import Modal from './Modal';
   searchAround() {
     axios({
       method: 'post',
-      url:'api/listings/get',
+      url:'/api/listings/get',
       data: {
         lat: this.lat,
         long: this.lng,
@@ -133,7 +133,7 @@ import Modal from './Modal';
   }
 
   houseSelect(id) {
-    axios.get(`api/listings/${id}`)
+    axios.get(`/api/listings/${id}`)
       .then(res => {
         this.house = res.data;
         this.openModal();
@@ -233,7 +233,7 @@ import Modal from './Modal';
   handleFavorite(id) {
     axios({
       method: 'post',
-      url: 'api/favorites',
+      url: '/api/favorites',
       headers: {
         'Content-Type': 'application/json'
       },

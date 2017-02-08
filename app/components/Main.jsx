@@ -1,5 +1,5 @@
 import React from 'react';
-import { Match, Redirect } from 'react-router';
+import { Route, Redirect } from 'react-router-dom';
 import MainLanding from './MainLanding';
 import SearchHomes from './SearchHomes';
 import HousePage from './HousePage';
@@ -12,7 +12,7 @@ export default class Main extends React.Component {
   render() {
     return (
       <div>
-        <Match exactly pattern="/" render={() => (
+        <Route exact path="/" render={() => (
           localStorage.lat && localStorage.lng ? (
             <Redirect to="/search" />
           ) : (
@@ -21,7 +21,7 @@ export default class Main extends React.Component {
             />
           )
         )}/>
-        <Match pattern="/search" render={() => (
+        <Route path="/search" render={() => (
           <SearchHomes
             loggedIn={this.props.loggedIn}
             houseSelected={this.props.houseSelected}
@@ -30,7 +30,7 @@ export default class Main extends React.Component {
             deleteFavorite={this.props.deleteFavorite}
           />
         )} />
-        <Match pattern="/house" render={(props) => (
+        <Route path="/house/:id" render={(props) => (
           <HousePage
             {...props}
             loggedIn={this.props.loggedIn}

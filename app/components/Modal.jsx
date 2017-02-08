@@ -1,7 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import HousePage from './HousePage';
 import InfoRow from './InfoRow';
@@ -31,7 +31,7 @@ import InfoRow from './InfoRow';
     if (this.props.house.id && this.props.loggedIn) {
       axios({
         method: 'get',
-        url: `api/favorites/check?listingId=${this.props.house.id}`,
+        url: `/api/favorites/check?listingId=${this.props.house.id}`,
         headers: {
           'Content-Type': 'application/json'
         }
@@ -109,7 +109,7 @@ import InfoRow from './InfoRow';
             <div className="two columns">
               <Link
                 className="button"
-                to={{ pathname: '/house', query: { id: this.props.house.id } }}
+                to={{ pathname: `/house/${this.props.house.id}` }}
                 target="_blank"
                 >
                 Learn More
