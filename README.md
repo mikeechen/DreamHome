@@ -1,11 +1,25 @@
-# Dream Homes by Rebecca
+# [Dream Homes by Rebecca](https://dreamhomesbyrebeccayu.herokuapp.com)
 
-An online destination for current and future clients of real-estate agent Rebecca Yu searching in the Corvallis, OR area. This customized experience enables house hunters to easily discover listings, favorite properties of interest, and contact the agent.
+This is an online destination for current and future clients of real-estate agent Rebecca Yu searching in the Corvallis, OR area. This customized experience enables house hunters to easily discover listings, favorite properties of interest, and contact the agent.
 
-## Installation
+![Home](./readmepics/dreamhome.png)
 
-No installation necessary.
+![Search](./readmepics/search.png)
 
-## Getting started
+![House](./readmepics/house.png)
 
-To test the app, please go to http://dreamhomesbyrebeccayu.herokuapp.com/, create and account, or simply start looking for properties on Sale in the Corvallis, OR area!
+
+## Technologies Used
+
+* ReactJS
+* MobX
+* NodeJS
+* PostgreSQL
+* PostGIS
+
+## Api's Used
+
+* Google Maps
+* Zillow
+
+### Please submit any feedback or bugs in Issues! Any feedback is welcome!
